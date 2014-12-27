@@ -1,0 +1,165 @@
+"""""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
+set encoding=utf-8
+set langmenu=zh_CN.UTF-8
+language messages zh_CN.utf-8
+set fileencoding=utf-8
+if has("gui_running")
+       set guioptions-=m
+       set guioptions-=T
+       set showtabline=0
+       set guioptions-=b
+endif 
+set winaltkeys=no	"Alt 组合键不映射到菜单上
+"""""""最大化开启
+if has('win32')
+	au GUIEnter * simalt ~x
+else
+	au GUIEnter * call MaximizeWindow()
+endif
+function! MaximizeWindow()
+	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+endfunction
+"""""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
+
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+	let opt = '-a --binary '
+	if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+	if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+	let arg1 = v:fname_in
+	if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+	let arg2 = v:fname_new
+	if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+	let arg3 = v:fname_out
+	if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+	let eq = ''
+	if $VIMRUNTIME =~ ' '
+		if &sh =~ '\<cmd'
+			let cmd = '""' . $VIMRUNTIME . '\diff"'
+			let eq = '"'
+		else
+			let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+		endif
+	else
+		let cmd = $VIMRUNTIME . '\diff'
+	endif
+	silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+"""""""""""""""""""""""""""Vundle"""""""""""""""""""""""""""
+set nocompatible
+filetype off
+set rtp+=$VIM/vimfiles/bundle/Vundle/ 
+let path='$VIM/vimfiles/bundle' 
+call vundle#begin(path)
+
+Plugin 'gmarik/Vundle'
+
+Plugin 'majutsushi/tagbar'
+"Plugin 'scrooloose/nerdtree'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/ListToggle'
+Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'Yggdroot/LeaderF'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'Yggdroot/indentLine'
+Plugin 'idanarye/vim-dutyl'
+Plugin 'SirVer/ultisnips'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'jalcine/cmake.vim'
+
+
+Plugin 'petRUShka/vim-opencl'
+Plugin 'JesseKPhillips/d.vim'
+
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()
+filetype plugin indent on
+"""""""""""""""""""""""""""Vundle"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
+
+let g:ycm_global_ycm_extra_conf='E:/DeveloperTools/Vim/vimfiles/bundle/.ycm_extra_conf.py' "设置全局配置文件
+let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 1     "最小补全输入
+let g:ycm_semantic_triggers = {'cpp': ['->', '.', '::', 're![a-zA-Z0-9_]+', 're!\w+'], 'd': ['.', 're![a-zA-Z0-9_]+', 're!\w+']}
+let g:ycm_cache_omnifunc = 0    "每次不全更新OmniComplete缓存
+let g:ycm_always_populate_location_list = 1   "自动弹出locationlist
+let g:ycm_warning_symbol = '>>'
+let g:ycm_error_symbol = 'X'
+"""""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
+let g:formatprg_d = "astyle"
+let g:formatprg_args_expr_d = '"--mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+"""""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""NERDTree"""""""""""""""""""""""""""
+"autocmd vimenter * NERDTree
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"let NERDChristmasTree = 1
+"""""""""""""""""""""""""""NERDTree"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
+let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
+"let g:syntastic_cpp_compiler = 'clang++'  
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
+let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python34'
+"""""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
+set nu! "显示行号
+syntax on "语法高亮度显示
+filetype on  "检测文件的类型
+set autoindent "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
+set cindent "（cindent是特别针对 C语言语法自动缩进）
+set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
+set ai!  " 设置自动缩进
+set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
+"highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "设置VIM代码补全框背景颜色
+set background=light 
+let g:solarized_termcolors=256
+colorscheme solarized   "设置配色方案
+set fileencoding=utf-8
+inoremap <A-S> <C-o>:Autoformat<CR><C-o>:w<CR>
+nnoremap <A-S> :Autoformat<CR>:w<CR>
+inoremap <F11> <C-o>:DUlsyntaxCheck<CR>
+nnoremap <F11> :DUlsyntaxCheck<CR>
+map <C-L> :Leaderf<CR>
+inoremap <F3> <C-o>:Autoformat<CR>
+nnoremap <F3> :Autoformat<CR>
+map <F12> :e E:/DeveloperTools/Vim/_vimrc<CR>
+map <C-Q> :q<CR>
+inoremap <C-E> <C-o><End>
+map <C-J> :bn<cr>
+map <C-K> :bp<cr>
+autocmd BufEnter * cd %:p:h  "自动切换工作目录
+set guifont=Consolas:h12:cANSI
+set guifontwide=Consolas:h12
+"""""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
+set tags=tags;
+set autochdir
+map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+autocmd vimenter * TagbarToggle
+let g:tagbar_left = 1
+"""""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
+call dutyl#register#tool('dcd-client','E:/DeveloperTools/DCD/dcd-client.exe') 
+call dutyl#register#tool('dcd-server','E:/DeveloperTools/DCD/dcd-server.exe')
+let g:dutyl_stdImportPaths=['E:/DeveloperTools/dmd2/src/phobos', 'E:/DeveloperTools/dmd2/src/druntime/import', 'E:/DeveloperTools/dmd2/tango']
+let g:dutyl_neverAddClosingParen = 1
+"""""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""airline"""""""""""""""""""""""""""
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_powerline_fonts = 1
+"""""""""""""""""""""""""""airline"""""""""""""""""""""""""""
+
+
