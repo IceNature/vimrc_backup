@@ -1,0 +1,1 @@
+E:\DeveloperTools\msys\1.0\msys.bat
