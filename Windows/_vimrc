@@ -4,13 +4,13 @@ set langmenu=zh_CN.UTF-8
 language messages zh_CN.utf-8
 set fileencoding=utf-8
 if has("gui_running")
-       set guioptions-=m
-       set guioptions-=T
-       set showtabline=0
-       set guioptions-=b
+	set guioptions-=m
+	set guioptions-=T
+	set showtabline=0
+	set guioptions-=b
 endif 
-set winaltkeys=no	"Alt ×éºÏ¼ü²»Ó³Éäµ½²Ëµ¥ÉÏ
-"""""""×î´ó»¯¿ªÆô
+set winaltkeys=no	"Alt ç»„åˆé”®ä¸æ˜ å°„åˆ°èœå•ä¸Š
+"""""""æœ€å¤§åŒ–å¼€å¯
 if has('win32')
 	au GUIEnter * simalt ~x
 else
@@ -74,6 +74,7 @@ Plugin 'idanarye/vim-dutyl'
 Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'jalcine/cmake.vim'
+Plugin 'tpope/vim-fugitive'
 
 
 Plugin 'petRUShka/vim-opencl'
@@ -86,13 +87,18 @@ filetype plugin indent on
 """""""""""""""""""""""""""Vundle"""""""""""""""""""""""""""
 """""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
 
-let g:ycm_global_ycm_extra_conf='E:/DeveloperTools/Vim/vimfiles/bundle/.ycm_extra_conf.py' "ÉèÖÃÈ«¾ÖÅäÖÃÎÄ¼ş
-let g:ycm_seed_identifiers_with_syntax=1 " Óï·¨¹Ø¼ü×Ö²¹È«
+let g:ycm_global_ycm_extra_conf='E:/DeveloperTools/Vim/vimfiles/bundle/.ycm_extra_conf.py' "è®¾ç½®å…¨å±€é…ç½®æ–‡ä»¶
+let g:ycm_seed_identifiers_with_syntax=1 " è¯­æ³•å…³é”®å­—è¡¥å…¨
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_min_num_of_chars_for_completion = 1     "×îĞ¡²¹È«ÊäÈë
-let g:ycm_semantic_triggers = {'cpp': ['->', '.', '::', 're![a-zA-Z0-9_]+', 're!\w+'], 'd': ['.', 're![a-zA-Z0-9_]+', 're!\w+']}
-let g:ycm_cache_omnifunc = 0    "Ã¿´Î²»È«¸üĞÂOmniComplete»º´æ
-let g:ycm_always_populate_location_list = 1   "×Ô¶¯µ¯³ölocationlist
+let g:ycm_min_num_of_chars_for_completion = 1     "æœ€å°è¡¥å…¨è¾“å…¥
+if !exists('g:ycm_semantic_triggers')
+	let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.cpp = ['re!\w+']
+"let g:ycm_semantic_triggers.d = ['re!\w+']
+let g:ycm_semantic_triggers.python = ['re!\w+']
+let g:ycm_cache_omnifunc = 0    "æ¯æ¬¡è¡¥å…¨æ›´æ–°OmniCompleteç¼“å­˜
+let g:ycm_always_populate_location_list = 1   "è‡ªåŠ¨å¼¹å‡ºlocationlist
 let g:ycm_warning_symbol = '>>'
 let g:ycm_error_symbol = 'X'
 """""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
@@ -106,39 +112,34 @@ let g:formatprg_args_expr_d = '"--mode=c --style=ansi -pcH".(&expandtab ? "s".&s
 "let NERDChristmasTree = 1
 """""""""""""""""""""""""""NERDTree"""""""""""""""""""""""""""
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
-let g:syntastic_always_populate_loc_list = 1  "×Ô¶¯¸üĞÂ´íÎóÁĞ±í
+let g:syntastic_always_populate_loc_list = 1  "è‡ªåŠ¨æ›´æ–°é”™è¯¯åˆ—è¡¨
 "let g:syntastic_cpp_compiler = 'clang++'  
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11Ö§³Ö
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11æ”¯æŒ
 let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python34'
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
-set nu! "ÏÔÊ¾ĞĞºÅ
-syntax on "Óï·¨¸ßÁÁ¶ÈÏÔÊ¾
-filetype on  "¼ì²âÎÄ¼şµÄÀàĞÍ
-set autoindent "vimÊ¹ÓÃ×Ô¶¯¶ÔÆë£¬Ò²¾ÍÊÇ°Ñµ±Ç°ĞĞµÄ¶ÔÆë¸ñÊ½Ó¦ÓÃµ½ÏÂÒ»ĞĞ(×Ô¶¯Ëõ½ø£©
-set cindent "£¨cindentÊÇÌØ±ğÕë¶Ô CÓïÑÔÓï·¨×Ô¶¯Ëõ½ø£©
-set smartindent "ÒÀ¾İÉÏÃæµÄ¶ÔÆë¸ñÊ½£¬ÖÇÄÜµÄÑ¡Ôñ¶ÔÆë·½Ê½£¬¶ÔÓÚÀàËÆCÓïÑÔ±àĞ´ÉÏÓĞÓÃ
-set ai!  " ÉèÖÃ×Ô¶¯Ëõ½ø
-set showmatch "ÉèÖÃÆ¥ÅäÄ£Ê½£¬ÀàËÆµ±ÊäÈëÒ»¸ö×óÀ¨ºÅÊ±»áÆ¥ÅäÏàÓ¦µÄÓÒÀ¨ºÅ
-"highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "ÉèÖÃVIM´úÂë²¹È«¿ò±³¾°ÑÕÉ«
+set nu "æ˜¾ç¤ºè¡Œå·
+syntax on "è¯­æ³•é«˜äº®åº¦æ˜¾ç¤º
+filetype on  "æ£€æµ‹æ–‡ä»¶çš„ç±»å‹
+set autoindent "vimä½¿ç”¨è‡ªåŠ¨å¯¹é½ï¼Œä¹Ÿå°±æ˜¯æŠŠå½“å‰è¡Œçš„å¯¹é½æ ¼å¼åº”ç”¨åˆ°ä¸‹ä¸€è¡Œ(è‡ªåŠ¨ç¼©è¿›ï¼‰
+set cindent "ï¼ˆcindentæ˜¯ç‰¹åˆ«é’ˆå¯¹ Cè¯­è¨€è¯­æ³•è‡ªåŠ¨ç¼©è¿›ï¼‰
+set smartindent "ä¾æ®ä¸Šé¢çš„å¯¹é½æ ¼å¼ï¼Œæ™ºèƒ½çš„é€‰æ‹©å¯¹é½æ–¹å¼ï¼Œå¯¹äºç±»ä¼¼Cè¯­è¨€ç¼–å†™ä¸Šæœ‰ç”¨
+set ai!  " è®¾ç½®è‡ªåŠ¨ç¼©è¿›
+set showmatch "è®¾ç½®åŒ¹é…æ¨¡å¼ï¼Œç±»ä¼¼å½“è¾“å…¥ä¸€ä¸ªå·¦æ‹¬å·æ—¶ä¼šåŒ¹é…ç›¸åº”çš„å³æ‹¬å·
+"highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "è®¾ç½®VIMä»£ç è¡¥å…¨æ¡†èƒŒæ™¯é¢œè‰²
 set background=light 
 let g:solarized_termcolors=256
-colorscheme solarized   "ÉèÖÃÅäÉ«·½°¸
+colorscheme solarized   "è®¾ç½®é…è‰²æ–¹æ¡ˆ
 set fileencoding=utf-8
-inoremap <A-S> <C-o>:Autoformat<CR><C-o>:w<CR>
-nnoremap <A-S> :Autoformat<CR>:w<CR>
-inoremap <F11> <C-o>:DUlsyntaxCheck<CR>
-nnoremap <F11> :DUlsyntaxCheck<CR>
-map <C-L> :Leaderf<CR>
-inoremap <F3> <C-o>:Autoformat<CR>
-nnoremap <F3> :Autoformat<CR>
-map <F12> :e E:/DeveloperTools/Vim/_vimrc<CR>
-map <C-Q> :q<CR>
-inoremap <C-E> <C-o><End>
-map <C-J> :bn<cr>
-map <C-K> :bp<cr>
-autocmd BufEnter * cd %:p:h  "×Ô¶¯ÇĞ»»¹¤×÷Ä¿Â¼
-set guifont=Consolas:h12:cANSI
+nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>evs :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>s :Autoformat<CR>:w<CR>
+nnoremap <leader>sa :wall<CR>
+nnoremap <leader>af :Autoformat<CR>
+nnoremap <leader>lf :Leaderf<CR>
+autocmd BufEnter * cd %:p:h  "è‡ªåŠ¨åˆ‡æ¢å·¥ä½œç›®å½•
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Consolas:h12
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 
@@ -159,7 +160,14 @@ let g:dutyl_neverAddClosingParen = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#flags = 'f'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
-
-
+"""""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
+let g:UltiSnipsJumpForwardTrigger="<c-b>" 
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<c-e>"
+"""""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
