@@ -73,7 +73,6 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'idanarye/vim-dutyl'
 Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'jalcine/cmake.vim'
 Plugin 'tpope/vim-fugitive'
 
 
@@ -95,16 +94,16 @@ if !exists('g:ycm_semantic_triggers')
 	let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers.cpp = ['re!\w+']
-"let g:ycm_semantic_triggers.d = ['re!\w+']
+let g:ycm_semantic_triggers.d = ['re!\w+']
 let g:ycm_semantic_triggers.python = ['re!\w+']
-let g:ycm_cache_omnifunc = 0    "每次补全更新OmniComplete缓存
 let g:ycm_always_populate_location_list = 1   "自动弹出locationlist
 let g:ycm_warning_symbol = '>>'
 let g:ycm_error_symbol = 'X'
+let g:ycm_use_ultisnips_completer = 1
 """""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
 let g:formatprg_d = "astyle"
-let g:formatprg_args_expr_d = '"--mode=c --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+let g:formatprg_args_expr_d = '"--mode=java --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
 """""""""""""""""""""""""""NERDTree"""""""""""""""""""""""""""
 "autocmd vimenter * NERDTree
@@ -126,6 +125,7 @@ set cindent "（cindent是特别针对 C语言语法自动缩进）
 set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
 set ai!  " 设置自动缩进
 set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
+set autochdir  "自动切换工作目录
 "highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "设置VIM代码补全框背景颜色
 set background=light 
 let g:solarized_termcolors=256
@@ -138,7 +138,7 @@ nnoremap <leader>s :Autoformat<CR>:w<CR>
 nnoremap <leader>sa :wall<CR>
 nnoremap <leader>af :Autoformat<CR>
 nnoremap <leader>lf :Leaderf<CR>
-autocmd BufEnter * cd %:p:h  "自动切换工作目录
+"autocmd BufEnter * cd %:p:h  "自动切换工作目录
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Consolas:h12
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
