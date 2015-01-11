@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
+﻿"""""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
 set encoding=utf-8
 set langmenu=zh_CN.UTF-8
 language messages zh_CN.utf-8
@@ -74,6 +74,7 @@ Plugin 'idanarye/vim-dutyl'
 Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
+"Plugin 'Shougo/neocomplete.vim'
 
 
 Plugin 'petRUShka/vim-opencl'
@@ -115,6 +116,9 @@ let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
 "let g:syntastic_cpp_compiler = 'clang++'  
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
 let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python34'
+let g:syntastic_d_check_header = 1   "D语言Syntastic
+let g:syntastic_d_no_include_search = 1
+let g:syntastic_d_compiler = 'dmd'   
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 set nu "显示行号
@@ -123,9 +127,9 @@ filetype on  "检测文件的类型
 set autoindent "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
 set cindent "（cindent是特别针对 C语言语法自动缩进）
 set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
-set ai!  " 设置自动缩进
+set ai  " 设置自动缩进
 set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
-set autochdir  "自动切换工作目录
+"set autochdir  "自动切换工作目录
 "highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "设置VIM代码补全框背景颜色
 set background=light 
 let g:solarized_termcolors=256
@@ -142,7 +146,6 @@ nnoremap <leader>lf :Leaderf<CR>
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Consolas:h12
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
-
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 set tags=tags;
 set autochdir
