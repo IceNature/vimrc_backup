@@ -74,7 +74,7 @@ Plugin 'idanarye/vim-dutyl'
 Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
-"Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neocomplete.vim'
 
 
 Plugin 'petRUShka/vim-opencl'
@@ -127,9 +127,8 @@ filetype on  "检测文件的类型
 set autoindent "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
 set cindent "（cindent是特别针对 C语言语法自动缩进）
 set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
-set ai  " 设置自动缩进
 set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
-"set autochdir  "自动切换工作目录
+set autochdir  "自动切换工作目录
 "highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "设置VIM代码补全框背景颜色
 set background=light 
 let g:solarized_termcolors=256
@@ -142,6 +141,8 @@ nnoremap <leader>s :Autoformat<CR>:w<CR>
 nnoremap <leader>sa :wall<CR>
 nnoremap <leader>af :Autoformat<CR>
 nnoremap <leader>lf :Leaderf<CR>
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
 "autocmd BufEnter * cd %:p:h  "自动切换工作目录
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Consolas:h12
@@ -171,6 +172,5 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 let g:UltiSnipsJumpForwardTrigger="<c-b>" 
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsExpandTrigger="<c-e>"
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
