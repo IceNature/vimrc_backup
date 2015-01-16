@@ -157,7 +157,7 @@ let g:tagbar_left = 1
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 call dutyl#register#tool('dcd-client','E:/DeveloperTools/DCD/dcd-client.exe') 
 call dutyl#register#tool('dcd-server','E:/DeveloperTools/DCD/dcd-server.exe')
-let g:dutyl_stdImportPaths=['E:/DeveloperTools/dmd2/src/phobos', 'E:/DeveloperTools/dmd2/src/druntime/import', 'E:/DeveloperTools/dmd2/tango']
+let g:dutyl_stdImportPaths=['E:/DeveloperTools/dmd2/dmd2/src/phobos', 'E:/DeveloperTools/dmd2/dmd2/src/druntime/import', 'E:/DeveloperTools/dmd2/dmd2/src/tango']
 let g:dutyl_neverAddClosingParen = 1
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
