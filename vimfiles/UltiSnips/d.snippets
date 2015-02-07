@@ -609,9 +609,10 @@ void ${1:/+1: name+/}(${2:/+2: type+/} rhs) ${3:@safe pure nothrow @nogc}
 endsnippet
 
 snippet main "Main" b
-void main(string[] args)
+int main(string[] args)
 {
 	${1:${VISUAL}}${0}
+	return 0;
 }
 endsnippet
 

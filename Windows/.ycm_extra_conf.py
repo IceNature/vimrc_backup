@@ -73,7 +73,7 @@ flags = [
 '.',
 '-I',
 './ClangCompleter',
-'-isystem', 
+'-isystem',
 'E:/developertools/TDM-GCC/lib/gcc/mingw32/4.9.2/include/c++',
 '-isystem', 
 'E:/developertools/TDM-GCC/lib/gcc/mingw32/4.9.2/include/c++/mingw32',
@@ -96,13 +96,17 @@ flags = [
 '-isystem', 
 'C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v6.0/include',
 '-isystem', 
-'E:/DeveloperTools/wxWidgets-3.0.2/include/wx',
+'E:/DeveloperTools/wxWidgets-3.0.2/include/wx'
 ]
 
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
 # compile_commands.json file to use that instead of 'flags'. See here for
 # more details: http://clang.llvm.org/docs/JSONCompilationDatabase.html
+#
+# You can get CMake to generate this file for you by adding:
+#   set( CMAKE_EXPORT_COMPILE_COMMANDS 1 )
+# to your CMakeLists.txt file.
 #
 # Most projects will NOT need to set this to anything; you can just change the
 # 'flags' list of compilation flags. Notice that YCM itself uses that approach.
@@ -186,10 +190,10 @@ def FlagsForFile( filename, **kwargs ):
     # NOTE: This is just for YouCompleteMe; it's highly likely that your project
     # does NOT need to remove the stdlib flag. DO NOT USE THIS IN YOUR
     # ycm_extra_conf IF YOU'RE NOT 100% SURE YOU NEED IT.
-#    try:
-#      final_flags.remove( '-stdlib=libc++' )
-#    except ValueError:
-#      pass
+    #try:
+    #  final_flags.remove( '-stdlib=libc++' )
+    #except ValueError:
+    #  pass
   else:
     relative_to = DirectoryOfThisScript()
     final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )
