@@ -62,6 +62,7 @@ Plugin 'gmarik/Vundle'
 
 Plugin 'majutsushi/tagbar'
 "Plugin 'scrooloose/nerdtree'
+Plugin 'SirVer/ultisnips'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Valloric/ListToggle'
 Plugin 'scrooloose/syntastic'
@@ -71,10 +72,11 @@ Plugin 'Yggdroot/LeaderF'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'Yggdroot/indentLine'
 Plugin 'idanarye/vim-dutyl'
-Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Shougo/neocomplete.vim'
+Plugin 'lilydjwg/colorizer'
+Plugin 'tomasr/molokai'
+Plugin 'abudden/taghighlight-automirror'
 
 
 Plugin 'petRUShka/vim-opencl'
@@ -90,16 +92,7 @@ filetype plugin indent on
 let g:ycm_global_ycm_extra_conf='E:/DeveloperTools/Vim/vimfiles/bundle/.ycm_extra_conf.py' "设置全局配置文件
 let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_min_num_of_chars_for_completion = 1     "最小补全输入
-if !exists('g:ycm_semantic_triggers')
-	let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers.cpp = ['re!\w+']
-let g:ycm_semantic_triggers.d = ['re!\w+']
-let g:ycm_semantic_triggers.python = ['re!\w+']
 let g:ycm_always_populate_location_list = 1   "自动弹出locationlist
-let g:ycm_warning_symbol = '>>'
-let g:ycm_error_symbol = 'X'
 let g:ycm_use_ultisnips_completer = 1
 """""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
@@ -115,10 +108,7 @@ let g:formatprg_args_expr_d = '"--mode=java --style=ansi -pcH".(&expandtab ? "s"
 let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
 "let g:syntastic_cpp_compiler = 'clang++'  
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
-let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python34'
-let g:syntastic_d_check_header = 1   "D语言Syntastic
-let g:syntastic_d_no_include_search = 1
-let g:syntastic_d_compiler = 'dmd'   
+let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python34' 
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 set nu "显示行号
@@ -126,13 +116,18 @@ syntax on "语法高亮度显示
 filetype on  "检测文件的类型
 set autoindent "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
 set cindent "（cindent是特别针对 C语言语法自动缩进）
+"set tabstop=4
+"set softtabstop=4  "缩进相关
+"set shiftwidth=4
 set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
 set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
 set autochdir  "自动切换工作目录
 "highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "设置VIM代码补全框背景颜色
+set list lcs=tab:\¦\  
 set background=light 
 let g:solarized_termcolors=256
 colorscheme solarized   "设置配色方案
+"colorscheme molokai
 set fileencoding=utf-8
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>evs :vsplit $MYVIMRC<cr>
@@ -143,9 +138,21 @@ nnoremap <leader>af :Autoformat<CR>
 nnoremap <leader>lf :Leaderf<CR>
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
+nnoremap <leader>pu :PluginUpdate<CR>
+nnoremap <leader>ut :UpdateTypesFile<CR>
 "autocmd BufEnter * cd %:p:h  "自动切换工作目录
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Consolas:h12
+"""""""运行Python
+augroup runpython
+	autocmd!
+	autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\" 
+	autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
+	autocmd FileType python nmap <localleader>rp :!python %<CR> 
+	autocmd FileType python set tabstop=4 
+	autocmd FileType python set nowrap 
+	autocmd FileType python set go+=b
+augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 set tags=tags;
@@ -157,7 +164,7 @@ let g:tagbar_left = 1
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 call dutyl#register#tool('dcd-client','E:/DeveloperTools/DCD/dcd-client.exe') 
 call dutyl#register#tool('dcd-server','E:/DeveloperTools/DCD/dcd-server.exe')
-let g:dutyl_stdImportPaths=['E:/DeveloperTools/dmd2/dmd2/src/phobos', 'E:/DeveloperTools/dmd2/dmd2/src/druntime/import', 'E:/DeveloperTools/dmd2/dmd2/src/tango']
+let g:dutyl_stdImportPaths=['E:/DeveloperTools/dmd2/src/phobos', 'E:/DeveloperTools/dmd2/src/druntime/import', 'E:/DeveloperTools/dmd2/src/tango']
 let g:dutyl_neverAddClosingParen = 1
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
@@ -174,3 +181,10 @@ let g:airline_powerline_fonts = 1
 let g:UltiSnipsJumpForwardTrigger="<c-b>" 
 let g:UltiSnipsExpandTrigger="<c-e>"
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
+if ! exists('g:TagHighlightSettings')
+	let g:TagHighlightSettings = {}
+endif
+let g:TagHighlightSettings['TagFileName'] = 'tagfile'
+let g:TagHighlightSettings['CtagsExecutable'] = 'ctags.exe'
+"""""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
