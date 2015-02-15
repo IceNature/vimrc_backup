@@ -160,6 +160,7 @@ set autochdir
 map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
+let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:functions',  'g:enums',  'u:unions',  's:structs',  'm:members'  ], 'sro': '.',  'kind2scope' : {  'c' : 'class',  'g' : 'enum',  's' : 'struct',  'u' : 'union' },  'scope2kind' : {  'enum' : 'g',  'class' : 'c',  'struct' : 's',  'union' : 'u'  }  }
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 call dutyl#register#tool('dcd-client','E:/DeveloperTools/DCD/dcd-client.exe') 
@@ -187,4 +188,6 @@ if ! exists('g:TagHighlightSettings')
 endif
 let g:TagHighlightSettings['TagFileName'] = 'tagfile'
 let g:TagHighlightSettings['CtagsExecutable'] = 'ctags.exe'
+let g:TagHighlightSettings['LanguageDetectionMethods'] = ['Extension', 'FileType']
+let g:TagHighlightSettings['FileTypeLanguageOverrides'] = {'tagbar': 'c'}
 """""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
