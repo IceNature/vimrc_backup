@@ -26,30 +26,30 @@ source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
-"set diffexpr=MyDiff()
-"function MyDiff()
-	"let opt = '-a --binary '
-	"if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-	"if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-	"let arg1 = v:fname_in
-	"if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-	"let arg2 = v:fname_new
-	"if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-	"let arg3 = v:fname_out
-	"if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-	"let eq = ''
-	"if $VIMRUNTIME =~ ' '
-		"if &sh =~ '\<cmd'
-			"let cmd = '""' . $VIMRUNTIME . '\diff"'
-			"let eq = '"'
-		"else
-			"let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-		"endif
-	"else
-		"let cmd = $VIMRUNTIME . '\diff'
-	"endif
-	"silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-"endfunction
+set diffexpr=MyDiff()
+function MyDiff()
+	let opt = '-a --binary '
+	if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+	if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+	let arg1 = v:fname_in
+	if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+	let arg2 = v:fname_new
+	if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+	let arg3 = v:fname_out
+	if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+	let eq = ''
+	if $VIMRUNTIME =~ ' '
+		if &sh =~ '\<cmd'
+			let cmd = '""' . $VIMRUNTIME . '\diff"'
+			let eq = '"'
+		else
+			let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+		endif
+	else
+		let cmd = $VIMRUNTIME . '\diff'
+	endif
+	silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
 
 """""""""""""""""""""""""""Vundle"""""""""""""""""""""""""""
 set nocompatible
@@ -75,6 +75,8 @@ Plugin 'idanarye/vim-dutyl'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'lilydjwg/colorizer'
+Plugin 'wesleyche/SrcExpl'
+Plugin 'tpope/vim-surround'
 Plugin 'tomasr/molokai'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'altercation/vim-colors-solarized'
@@ -89,6 +91,7 @@ let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_always_populate_location_list = 1   "自动弹出locationlist
 let g:ycm_use_ultisnips_completer = 1
+let g:ycm_key_invoke_completion = '<A-/>'
 """""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
 let g:formatprg_d = "astyle"
@@ -111,14 +114,14 @@ syntax on "语法高亮度显示
 filetype on  "检测文件的类型
 set autoindent "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
 set cindent "（cindent是特别针对 C语言语法自动缩进）
-"set tabstop=4
-"set softtabstop=4  "缩进相关
-"set shiftwidth=4
+set tabstop=4
+set softtabstop=4  "缩进相关
+set shiftwidth=4
+set expandtab
 set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
 set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
 set autochdir  "自动切换工作目录
-"highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "设置VIM代码补全框背景颜色
-set list lcs=tab:\¦\  
+"highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "设置VIM代码补全框背景颜色 
 set background=light 
 let g:solarized_termcolors=256
 colorscheme solarized   "设置配色方案
@@ -151,8 +154,6 @@ augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 set tags=tags;
-set autochdir
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
 let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:functions',  'g:enums',  'u:unions',  's:structs',  'm:members'  ], 'sro': '.',  'kind2scope' : {  'c' : 'class',  'g' : 'enum',  's' : 'struct',  'u' : 'union' },  'scope2kind' : {  'enum' : 'g',  'class' : 'c',  'struct' : 's',  'union' : 'u'  }  }
@@ -186,3 +187,17 @@ let g:TagHighlightSettings['CtagsExecutable'] = 'ctags.exe'
 let g:TagHighlightSettings['LanguageDetectionMethods'] = ['Extension', 'FileType']
 let g:TagHighlightSettings['FileTypeLanguageOverrides'] = {'tagbar': 'c'}
 """""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""SrcExpl"""""""""""""""""""""""""""
+nmap <F8> :SrcExplToggle<CR>
+let g:SrcExpl_winHeight = 8
+let g:SrcExpl_refreshTime = 100
+let g:SrcExpl_jumpKey = "<ENTER>"
+let g:SrcExpl_gobackKey = "<SPACE>"
+let g:SrcExpl_pluginList = [ "__Tagbar__"]
+let g:SrcExpl_searchLocalDef = 1
+let g:SrcExpl_isUpdateTags = 0
+let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+let g:SrcExpl_updateTagsKey = "<F12>"
+let g:SrcExpl_prevDefKey = "<F3>"
+let g:SrcExpl_nextDefKey = "<F4>"
+"""""""""""""""""""""""""""SrcExpl"""""""""""""""""""""""""""
