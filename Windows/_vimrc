@@ -4,20 +4,24 @@ set langmenu=zh_CN.UTF-8
 language messages zh_CN.utf-8
 set fileencoding=utf-8
 if has("gui_running")
-	set guioptions-=m
-	set guioptions-=T
-	set showtabline=0
-	set guioptions-=b
+    set guioptions-=m
+    set guioptions-=T
+    set showtabline=0
+    set guioptions-=b
 endif 
 set winaltkeys=no	"Alt 组合键不映射到菜单上
+"""""""DirectX
+if has('win32') || has('win64')
+    set renderoptions=type:directx,renmode:5
+end
 """""""最大化开启
 if has('win32')
-	au GUIEnter * simalt ~x
+    au GUIEnter * simalt ~x
 else
-	au GUIEnter * call MaximizeWindow()
+    au GUIEnter * call MaximizeWindow()
 endif
 function! MaximizeWindow()
-	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+    silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 """""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
 
@@ -28,27 +32,27 @@ behave mswin
 
 set diffexpr=MyDiff()
 function MyDiff()
-	let opt = '-a --binary '
-	if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-	if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-	let arg1 = v:fname_in
-	if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-	let arg2 = v:fname_new
-	if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-	let arg3 = v:fname_out
-	if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-	let eq = ''
-	if $VIMRUNTIME =~ ' '
-		if &sh =~ '\<cmd'
-			let cmd = '""' . $VIMRUNTIME . '\diff"'
-			let eq = '"'
-		else
-			let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-		endif
-	else
-		let cmd = $VIMRUNTIME . '\diff'
-	endif
-	silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+    let opt = '-a --binary '
+    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+    let arg1 = v:fname_in
+    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+    let arg2 = v:fname_new
+    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+    let arg3 = v:fname_out
+    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+    let eq = ''
+    if $VIMRUNTIME =~ ' '
+        if &sh =~ '\<cmd'
+            let cmd = '""' . $VIMRUNTIME . '\diff"'
+            let eq = '"'
+        else
+            let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        endif
+    else
+        let cmd = $VIMRUNTIME . '\diff'
+    endif
+    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
 """""""""""""""""""""""""""Vundle"""""""""""""""""""""""""""
@@ -140,16 +144,16 @@ nnoremap <leader>pc :PluginClean<CR>
 nnoremap <leader>ut :UpdateTypesFile<CR>
 "autocmd BufEnter * cd %:p:h  "自动切换工作目录
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
-set guifontwide=Consolas:h12
+set guifontwide=Microsoft_YaHei:h12
 """""""运行Python
 augroup runpython
-	autocmd!
-	autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\" 
-	autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
-	autocmd FileType python nmap <localleader>rp :!python %<CR> 
-	autocmd FileType python set tabstop=4 
-	autocmd FileType python set nowrap 
-	autocmd FileType python set go+=b
+    autocmd!
+    autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\" 
+    autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
+    autocmd FileType python nmap <localleader>rp :!python %<CR> 
+    autocmd FileType python set tabstop=4 
+    autocmd FileType python set nowrap 
+    autocmd FileType python set go+=b
 augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
@@ -180,7 +184,7 @@ let g:UltiSnipsExpandTrigger="<c-e>"
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 """""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
 if ! exists('g:TagHighlightSettings')
-	let g:TagHighlightSettings = {}
+    let g:TagHighlightSettings = {}
 endif
 let g:TagHighlightSettings['TagFileName'] = 'tagfile'
 let g:TagHighlightSettings['CtagsExecutable'] = 'ctags.exe'
