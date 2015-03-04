@@ -68,7 +68,6 @@ Plugin 'majutsushi/tagbar'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'SirVer/ultisnips'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'Valloric/ListToggle'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'jiangmiao/auto-pairs'
@@ -79,11 +78,12 @@ Plugin 'idanarye/vim-dutyl'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'lilydjwg/colorizer'
-Plugin 'wesleyche/SrcExpl'
 Plugin 'tpope/vim-surround'
+Plugin 'dkprice/vim-easygrep'
 Plugin 'tomasr/molokai'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'cSyntaxAfter'
 
 call vundle#end()
 filetype plugin indent on
@@ -113,7 +113,7 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
 let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python34' 
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
-set nu "显示行号
+set number "显示行号
 syntax on "语法高亮度显示
 filetype on  "检测文件的类型
 set autoindent "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
@@ -121,28 +121,45 @@ set cindent "（cindent是特别针对 C语言语法自动缩进）
 set tabstop=4
 set softtabstop=4  "缩进相关
 set shiftwidth=4
-set expandtab
+set expandtab "展开Tab
 set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
 set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
-set autochdir  "自动切换工作目录
-"highlight Pmenu ctermfg=Blue ctermbg=Blue guibg=Black  "设置VIM代码补全框背景颜色 
-set background=light 
-let g:solarized_termcolors=256
-colorscheme solarized   "设置配色方案
+set incsearch "搜索时自动高亮第一个匹配项
+set hlsearch "高亮搜索匹配项
+set ignorecase smartcase "智能匹配大小写
+set hidden "隐藏未保存缓冲区
+let mapleader=',' "leader映射为逗号
+set wildmode=full
+set wildmenu  "命令行补全菜单
+"set autochdir  "自动切换工作目录
+"set background=light 
+"let g:solarized_termcolors=256
+"colorscheme solarized   "设置配色方案
+colorscheme molokai
 set fileencoding=utf-8
-nnoremap <leader>ev :e $MYVIMRC<cr>
-nnoremap <leader>evs :vsplit $MYVIMRC<cr>
+nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>s :Autoformat<CR>:w<CR>
-nnoremap <leader>sa :wall<CR>
+nnoremap <silent> <leader>sa :wall<CR>
 nnoremap <leader>af :Autoformat<CR>
 nnoremap <leader>lf :Leaderf<CR>
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
-nnoremap <leader>pu :PluginUpdate<CR>
-nnoremap <leader>pc :PluginClean<CR>
-nnoremap <leader>ut :UpdateTypesFile<CR>
-"autocmd BufEnter * cd %:p:h  "自动切换工作目录
+nnoremap <silent> <C-n> :bn<CR>
+nnoremap <silent> <C-p> :bp<CR>
+nnoremap <leader>utf :UpdateTypesFile<CR>
+nnoremap <silent>utfl :UpdateTypesFileOnly<CR>
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+nnoremap <silent> <leader>nl :nohl<CR>
+nnoremap <silent> <leader>sb :set bomb<CR>
+nnoremap <silent> <leader>et :%retab!<CR>
+nnoremap <silent> <leader>qo :copen<CR>
+nnoremap <silent> <leader>qc :cclose<CR>
+nnoremap <leader>qn :cnext<CR>
+nnoremap <leader>qp :cprev<CR>
+nnoremap <silent> <leader>lo :lopen<CR>
+nnoremap <silent> <leader>lc :lclose<CR>
+nnoremap <leader>ln :lnext<CR>
+nnoremap <leader>lp :lprev<CR>
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Microsoft_YaHei:h12
 """""""运行Python
@@ -157,7 +174,7 @@ augroup runpython
 augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
-set tags=tags;
+set tags=tagfile
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
 let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:functions',  'g:enums',  'u:unions',  's:structs',  'm:members'  ], 'sro': '.',  'kind2scope' : {  'c' : 'class',  'g' : 'enum',  's' : 'struct',  'u' : 'union' },  'scope2kind' : {  'enum' : 'g',  'class' : 'c',  'struct' : 's',  'union' : 'u'  }  }
@@ -191,17 +208,19 @@ let g:TagHighlightSettings['CtagsExecutable'] = 'ctags.exe'
 let g:TagHighlightSettings['LanguageDetectionMethods'] = ['Extension', 'FileType']
 let g:TagHighlightSettings['FileTypeLanguageOverrides'] = {'tagbar': 'c'}
 """""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""SrcExpl"""""""""""""""""""""""""""
-nmap <F8> :SrcExplToggle<CR>
-let g:SrcExpl_winHeight = 8
-let g:SrcExpl_refreshTime = 100
-let g:SrcExpl_jumpKey = "<ENTER>"
-let g:SrcExpl_gobackKey = "<SPACE>"
-let g:SrcExpl_pluginList = [ "__Tagbar__"]
-let g:SrcExpl_searchLocalDef = 1
-let g:SrcExpl_isUpdateTags = 0
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
-let g:SrcExpl_updateTagsKey = "<F12>"
-let g:SrcExpl_prevDefKey = "<F3>"
-let g:SrcExpl_nextDefKey = "<F4>"
-"""""""""""""""""""""""""""SrcExpl"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""cSyntaxAfter"""""""""""""""""""""""""""
+if exists("*CSyntaxAfter")
+    call CSyntaxAfter()
+endif
+"""""""""""""""""""""""""""cSyntaxAfter"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
+"""Code from:https://github.com/nelstrom/vim-visual-star-search/blob/master/plugin/visual-star-search.vim
+function! s:VSetSearch(cmdtype)
+    let temp = @s
+    norm! gv"sy
+    let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+    let @s = temp
+endfunction
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+"""""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
