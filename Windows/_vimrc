@@ -80,6 +80,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'lilydjwg/colorizer'
 Plugin 'tpope/vim-surround'
 Plugin 'dkprice/vim-easygrep'
+Plugin 'honza/vim-snippets'
 Plugin 'tomasr/molokai'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'altercation/vim-colors-solarized'
@@ -140,12 +141,16 @@ set fileencoding=utf-8
 nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <leader>s :Autoformat<CR>:w<CR>
 nnoremap <silent> <leader>sa :wall<CR>
+nnoremap <leader>afa :bufdo Autoformat<CR>
 nnoremap <leader>af :Autoformat<CR>
 nnoremap <leader>lf :Leaderf<CR>
-nnoremap <silent> <C-n> :bn<CR>
-nnoremap <silent> <C-p> :bp<CR>
+nnoremap <silent> <leader>bn :bn<CR>
+nnoremap <silent> <leader>bp :bp<CR>
+nnoremap <silent> <leader>wj <C-w>j
+nnoremap <silent> <leader>wk <C-w>k
+nnoremap <silent> <leader>wl <C-w>l
+nnoremap <silent> <leader>wh <C-w>h
 nnoremap <leader>utf :UpdateTypesFile<CR>
 nnoremap <silent>utfl :UpdateTypesFileOnly<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -198,6 +203,7 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 let g:UltiSnipsJumpForwardTrigger="<c-b>" 
 let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容YCM
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 """""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
 if ! exists('g:TagHighlightSettings')

@@ -92,11 +92,7 @@ flags = [
 '-isystem', 
 'E:/DeveloperTools/wxWidgets-3.0.2/include',
 '-isystem', 
-'C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v6.0/include/CL',
-'-isystem', 
 'C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v6.0/include',
-'-isystem', 
-'E:/DeveloperTools/wxWidgets-3.0.2/include/wx'
 ]
 
 
