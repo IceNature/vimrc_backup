@@ -85,17 +85,20 @@ Plugin 'tomasr/molokai'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'cSyntaxAfter'
+Plugin 'richq/cmakecompletion-vim'
 
 call vundle#end()
 filetype plugin indent on
 """""""""""""""""""""""""""Vundle"""""""""""""""""""""""""""
 """""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
 
-let g:ycm_global_ycm_extra_conf='E:/DeveloperTools/Vim/vimfiles/bundle/.ycm_extra_conf.py' "设置全局配置文件
+let g:ycm_global_ycm_extra_conf=expand('$VIM').'/vimfiles/bundle/.ycm_extra_conf.py' "设置全局配置文件
 let g:ycm_seed_identifiers_with_syntax=1 " 语法关键字补全
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_always_populate_location_list = 1   "自动弹出locationlist
 let g:ycm_use_ultisnips_completer = 1
+let g:ycm_confirm_extra_conf = 0  "导入配置文件时不手动确认
+let g:ycm_semantic_triggers = { 'cmake':['re!\w+\.'] }
 let g:ycm_key_invoke_completion = '<A-/>'
 """""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
@@ -144,7 +147,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>sa :wall<CR>
 nnoremap <leader>afa :bufdo Autoformat<CR>
 nnoremap <leader>af :Autoformat<CR>
-nnoremap <leader>lf :Leaderf<CR>
 nnoremap <silent> <leader>bn :bn<CR>
 nnoremap <silent> <leader>bp :bp<CR>
 nnoremap <silent> <leader>wj <C-w>j
@@ -167,6 +169,11 @@ nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprev<CR>
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Microsoft_YaHei:h12
+"""""""Markdown
+augroup markdownACMD
+    autocmd!
+    autocmd FileType markdown setlocal spell
+augroup END
 """""""运行Python
 augroup runpython
     autocmd!
@@ -179,6 +186,7 @@ augroup runpython
 augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
+nnoremap <leader>gtf :!ctags -R --exclude=.git -f tagfile
 set tags=tagfile
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
@@ -201,7 +209,7 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
-let g:UltiSnipsJumpForwardTrigger="<c-b>" 
+let g:UltiSnipsJumpForwardTrigger="<c-n>" 
 let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容YCM
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
