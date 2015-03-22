@@ -31,7 +31,7 @@ source $VIMRUNTIME/mswin.vim
 behave mswin
 
 set diffexpr=MyDiff()
-function MyDiff()
+function! MyDiff()
     let opt = '-a --binary '
     if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
     if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
@@ -112,7 +112,7 @@ let g:formatprg_args_expr_d = '"--mode=java --style=ansi -pcH".(&expandtab ? "s"
 """""""""""""""""""""""""""NERDTree"""""""""""""""""""""""""""
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
-"let g:syntastic_cpp_compiler = 'clang++'  
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
 let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python34' 
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
@@ -135,6 +135,7 @@ set hidden "隐藏未保存缓冲区
 let mapleader=',' "leader映射为逗号
 set wildmode=full
 set wildmenu  "命令行补全菜单
+set fileformats=unix,dos "优先选择Unix换行符
 "set autochdir  "自动切换工作目录
 "set background=light 
 "let g:solarized_termcolors=256
@@ -158,7 +159,6 @@ nnoremap <silent>utfl :UpdateTypesFileOnly<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 nnoremap <silent> <leader>nl :nohl<CR>
 nnoremap <silent> <leader>sb :set bomb<CR>
-nnoremap <silent> <leader>et :%retab!<CR>
 nnoremap <silent> <leader>qo :copen<CR>
 nnoremap <silent> <leader>qc :cclose<CR>
 nnoremap <leader>qn :cnext<CR>
@@ -167,22 +167,14 @@ nnoremap <silent> <leader>lo :lopen<CR>
 nnoremap <silent> <leader>lc :lclose<CR>
 nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprev<CR>
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <silent> <leader>rp :!E:/DeveloperTools/Python34/python.exe %<CR>
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Microsoft_YaHei:h12
 """""""Markdown
 augroup markdownACMD
     autocmd!
     autocmd FileType markdown setlocal spell
-augroup END
-"""""""运行Python
-augroup runpython
-    autocmd!
-    autocmd FileType python set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\" 
-    autocmd FileType python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
-    autocmd FileType python nmap <localleader>rp :!python %<CR> 
-    autocmd FileType python set tabstop=4 
-    autocmd FileType python set nowrap 
-    autocmd FileType python set go+=b
 augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
