@@ -83,7 +83,9 @@ Plugin 'dkprice/vim-easygrep'
 Plugin 'honza/vim-snippets'
 Plugin 'tomasr/molokai'
 Plugin 'abudden/taghighlight-automirror'
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
+"Plugin 'chriskempson/base16-vim'
+"Plugin 'chriskempson/base16-shell'
 Plugin 'cSyntaxAfter'
 Plugin 'richq/cmakecompletion-vim'
 
@@ -102,8 +104,12 @@ let g:ycm_semantic_triggers = { 'cmake':['re!\w+\.'] }
 let g:ycm_key_invoke_completion = '<A-/>'
 """""""""""""""""""""""""""YCM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
-let g:formatprg_d = "astyle"
-let g:formatprg_args_expr_d = '"--mode=java --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+let g:formatdef_my_custom_d = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+let g:formatters_d = ['my_custom_d']
+let g:formatdef_my_custom_c = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+let g:formatters_c=['my_custom_c']
+let g:formatters_cpp = ['my_custom_cpp']
+let g:formatdef_my_custom_cpp = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
 """""""""""""""""""""""""""NERDTree"""""""""""""""""""""""""""
 "autocmd vimenter * NERDTree
@@ -115,6 +121,8 @@ let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
 let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python34' 
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 set number "显示行号
@@ -145,9 +153,7 @@ set fileencoding=utf-8
 nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <silent> <leader>sa :wall<CR>
-nnoremap <leader>afa :bufdo Autoformat<CR>
-nnoremap <leader>af :Autoformat<CR>
+nnoremap <leader>af :w<CR>:Autoformat<CR>
 nnoremap <silent> <leader>bn :bn<CR>
 nnoremap <silent> <leader>bp :bp<CR>
 nnoremap <silent> <leader>wj <C-w>j
@@ -201,7 +207,7 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
-let g:UltiSnipsJumpForwardTrigger="<c-n>" 
+let g:UltiSnipsJumpForwardTrigger="<c-b>" 
 let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容YCM
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
