@@ -64,7 +64,6 @@ call vundle#begin(path)
 Plugin 'gmarik/Vundle'
 
 Plugin 'majutsushi/tagbar'
-"Plugin 'scrooloose/nerdtree'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'Rip-Rip/clang_complete'
@@ -88,7 +87,8 @@ Plugin 'abudden/taghighlight-automirror'
 "Plugin 'chriskempson/base16-vim'
 "Plugin 'chriskempson/base16-shell'
 Plugin 'cSyntaxAfter'
-Plugin 'richq/cmakecompletion-vim'
+"Plugin 'richq/cmakecompletion-vim'
+Plugin 'twatan/vim-cmake-dict'
 
 call vundle#end()
 filetype plugin indent on
@@ -112,7 +112,7 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 1
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplete#sources#dictionary#dictionaries = {'default' : ''}
+let g:neocomplete#sources#dictionary#dictionaries = {'default' : '' , 'cmake' : $VIM.'/vimfiles/bundle/vim-cmake-dict/dict/cmake.dict'}
 if !exists('g:neocomplete#keyword_patterns') 
     let g:neocomplete#keyword_patterns = {} 
 endif 
@@ -145,11 +145,6 @@ let g:formatters_c=['my_custom_c']
 let g:formatters_cpp = ['my_custom_cpp']
 let g:formatdef_my_custom_cpp = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""NERDTree"""""""""""""""""""""""""""
-"autocmd vimenter * NERDTree
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-"let NERDChristmasTree = 1
-"""""""""""""""""""""""""""NERDTree"""""""""""""""""""""""""""
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
 let g:syntastic_auto_loc_list = 1
@@ -218,8 +213,8 @@ augroup markdownACMD
 augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
-nnoremap <leader>gtf :!ctags -R --exclude=.git -f tagfile
-set tags=tagfile
+nnoremap <leader>gtf :!ctags -R --exclude=.git<CR>
+set tags=tags
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
 let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:functions',  'g:enums',  'u:unions',  's:structs',  'm:members'  ], 'sro': '.',  'kind2scope' : {  'c' : 'class',  'g' : 'enum',  's' : 'struct',  'u' : 'union' },  'scope2kind' : {  'enum' : 'g',  'class' : 'c',  'struct' : 's',  'union' : 'u'  }  }
@@ -249,7 +244,7 @@ let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容YCM
 if ! exists('g:TagHighlightSettings')
     let g:TagHighlightSettings = {}
 endif
-let g:TagHighlightSettings['TagFileName'] = 'tagfile'
+let g:TagHighlightSettings['TagFileName'] = 'tags'
 let g:TagHighlightSettings['CtagsExecutable'] = 'ctags.exe'
 let g:TagHighlightSettings['LanguageDetectionMethods'] = ['Extension', 'FileType']
 let g:TagHighlightSettings['FileTypeLanguageOverrides'] = {'tagbar': 'c'}
