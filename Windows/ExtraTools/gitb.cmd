@@ -1,1 +1,1 @@
-E:\DeveloperTools\Git\bin\sh.exe --login -i
+start E:\DeveloperTools\Git\git-bash.exe --cd-to-home
