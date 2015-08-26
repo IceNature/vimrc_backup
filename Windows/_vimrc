@@ -86,9 +86,9 @@ Plugin 'abudden/taghighlight-automirror'
 "Plugin 'altercation/vim-colors-solarized'
 "Plugin 'chriskempson/base16-vim'
 "Plugin 'chriskempson/base16-shell'
-Plugin 'cSyntaxAfter'
 "Plugin 'richq/cmakecompletion-vim'
 Plugin 'twatan/vim-cmake-dict'
+Plugin 'luochen1990/rainbow'
 
 call vundle#end()
 filetype plugin indent on
@@ -211,6 +211,8 @@ augroup markdownACMD
     autocmd!
     autocmd FileType markdown setlocal spell
 augroup END
+
+let g:rainbow_active = 1
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 nnoremap <leader>gtf :!ctags -R --exclude=.git<CR>
@@ -249,11 +251,6 @@ let g:TagHighlightSettings['CtagsExecutable'] = 'ctags.exe'
 let g:TagHighlightSettings['LanguageDetectionMethods'] = ['Extension', 'FileType']
 let g:TagHighlightSettings['FileTypeLanguageOverrides'] = {'tagbar': 'c'}
 """""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""cSyntaxAfter"""""""""""""""""""""""""""
-if exists("*CSyntaxAfter")
-    call CSyntaxAfter()
-endif
-"""""""""""""""""""""""""""cSyntaxAfter"""""""""""""""""""""""""""
 """""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
 """Code from:https://github.com/nelstrom/vim-visual-star-search/blob/master/plugin/visual-star-search.vim
 function! s:VSetSearch(cmdtype)
