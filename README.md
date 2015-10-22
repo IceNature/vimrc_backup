@@ -5,12 +5,8 @@
 
 ##目录结构
     +Windows  //Windows Vim配置
-		.ycm_extra_conf.py  //YouCompleteMe C系语言设置
+		.clang_complete   //clang_complete C系语言设置
 		_vimrc  //Vim 设置
-		gvim.exe   //自编译vim，支持lua，Python和非等宽字体
-		DejaVu Sans Mono for Powerline.ttf   //PowerLine字体Patch
 		+ExtraTools  //其他工具
 	+Linux  //TODO:Linux Vim配置
-	+vimfiles   
-		+UltiSnips   //UltiSnips snippets*
-**\*注**：d.snippets来自[d.snippets](https://github.com/kiith-sa/DSnips#try),其他snippets均来自[vim-snippets](https://github.com/honza/vim-snippets)。
+    DejaVu Sans Mono for Powerline.ttf   //PowerLine字体Patch
