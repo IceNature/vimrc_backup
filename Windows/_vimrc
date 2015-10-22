@@ -54,45 +54,51 @@ function! MyDiff()
     endif
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-"""""""""""""""""""""""""""Vundle"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
 set nocompatible
-filetype off
-set rtp+=$VIM/vimfiles/bundle/Vundle/ 
-let path='$VIM/vimfiles/bundle' 
-call vundle#begin(path)
+call plug#begin(expand($VIM).'/vimfiles/bundle')
 
-Plugin 'gmarik/Vundle'
+"""""""""""Common
+Plug 'majutsushi/tagbar'
+Plug 'Shougo/neocomplete.vim'
+Plug 'SirVer/ultisnips'
+Plug 'scrooloose/syntastic'
+Plug 'bling/vim-airline'
+Plug 'jiangmiao/auto-pairs'
+Plug 'DataWraith/auto_mkdir'
+Plug 'Yggdroot/LeaderF'
+Plug 'Chiel92/vim-autoformat'
+Plug 'Yggdroot/indentLine'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-fugitive'
+Plug 'luochen1990/rainbow'
+Plug 'lilydjwg/colorizer'
+Plug 'tpope/vim-surround'
+Plug 'dkprice/vim-easygrep'
+Plug 'honza/vim-snippets'
+Plug 'tomasr/molokai'
+"Plug 'altercation/vim-colors-solarized'
+"Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-shell'
+"Plug 'richq/cmakecompletion-vim'
 
-Plugin 'majutsushi/tagbar'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'Rip-Rip/clang_complete'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'bling/vim-airline'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'Yggdroot/LeaderF'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'Yggdroot/indentLine'
-Plugin 'idanarye/vim-dutyl'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'lilydjwg/colorizer'
-Plugin 'tpope/vim-surround'
-Plugin 'dkprice/vim-easygrep'
-Plugin 'honza/vim-snippets'
-Plugin 'tomasr/molokai'
-Plugin 'abudden/taghighlight-automirror'
-"Plugin 'altercation/vim-colors-solarized'
-"Plugin 'chriskempson/base16-vim'
-"Plugin 'chriskempson/base16-shell'
-"Plugin 'richq/cmakecompletion-vim'
-Plugin 'twatan/vim-cmake-dict'
-Plugin 'luochen1990/rainbow'
+"""""""""""Desktop
+Plug 'Rip-Rip/clang_complete'
+Plug 'davidhalter/jedi-vim'
+Plug 'idanarye/vim-dutyl'
+Plug 'twatan/vim-cmake-dict'
+Plug 'taxilian/a.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 
-call vundle#end()
+"""""""""""Web
+Plug 'othree/html5.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'alvan/vim-closetag'
+
+call plug#end()
 filetype plugin indent on
-"""""""""""""""""""""""""""Vundle"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-jedi"""""""""""""""""""""""""""
 let g:jedi#force_py_version = 3
 let g:jedi#completions_enabled = 0
@@ -106,6 +112,8 @@ let g:clang_use_library = 1
 let g:clang_complete_copen = 1
 let g:clang_periodic_quickfix = 1
 let g:clang_user_options='-std=c++11 -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++ -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++/mingw32 -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++/backward -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include-fixed -IE:/developertools/TDM-GCC/include'
+let g:AutoPairsMapCR = 0   "修复 auto-pairs 回车键冲突
+imap <silent><CR> <CR><Plug>AutoPairsReturn
 """""""""""""""""""""""""""clang_complete"""""""""""""""""""""""""""
 """""""""""""""""""""""""""neocomplete"""""""""""""""""""""""""""
 let g:neocomplete#enable_at_startup = 1
@@ -118,22 +126,28 @@ if !exists('g:neocomplete#keyword_patterns')
 endif 
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 inoremap <expr><C-g> neocomplete#undo_completion()
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() 
-    return neocomplete#close_popup() . "\<CR>"
-endfunction
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function() 
+    "return neocomplete#close_popup() . "\<CR>"
+"endfunction
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>" 
-inoremap <expr><C-y> neocomplete#close_popup()
+inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+
 if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
 let g:neocomplete#force_omni_input_patterns.cpp ='[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 inoremap <silent><A-/> <c-x><c-o>
 """""""""""""""""""""""""""neocomplete"""""""""""""""""""""""""""
@@ -173,6 +187,9 @@ let mapleader=',' "leader映射为逗号
 set wildmode=full
 set wildmenu  "命令行补全菜单
 set fileformats=unix,dos "优先选择Unix换行符
+set colorcolumn=80
+set cursorline  "显示当前行位置
+
 "set autochdir  "自动切换工作目录
 "set background=light 
 "let g:solarized_termcolors=256
@@ -189,8 +206,6 @@ nnoremap <silent> <leader>wj <C-w>j
 nnoremap <silent> <leader>wk <C-w>k
 nnoremap <silent> <leader>wl <C-w>l
 nnoremap <silent> <leader>wh <C-w>h
-nnoremap <leader>utf :UpdateTypesFile<CR>
-nnoremap <silent>utfl :UpdateTypesFileOnly<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 nnoremap <silent> <leader>nl :nohl<CR>
 nnoremap <silent> <leader>sb :set bomb<CR>
@@ -202,7 +217,6 @@ nnoremap <silent> <leader>lo :lopen<CR>
 nnoremap <silent> <leader>lc :lclose<CR>
 nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprev<CR>
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
 nnoremap <silent> <leader>rp :!E:/DeveloperTools/Python34/python.exe %<CR>
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
 set guifontwide=Microsoft_YaHei:h12
@@ -240,17 +254,8 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 let g:UltiSnipsJumpForwardTrigger="<c-b>" 
 let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容YCM
+"let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容YCM
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
-if ! exists('g:TagHighlightSettings')
-    let g:TagHighlightSettings = {}
-endif
-let g:TagHighlightSettings['TagFileName'] = 'tags'
-let g:TagHighlightSettings['CtagsExecutable'] = 'ctags.exe'
-let g:TagHighlightSettings['LanguageDetectionMethods'] = ['Extension', 'FileType']
-let g:TagHighlightSettings['FileTypeLanguageOverrides'] = {'tagbar': 'c'}
-"""""""""""""""""""""""""""TagHighlight"""""""""""""""""""""""""""
 """""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
 """Code from:https://github.com/nelstrom/vim-visual-star-search/blob/master/plugin/visual-star-search.vim
 function! s:VSetSearch(cmdtype)
@@ -262,3 +267,10 @@ endfunction
 xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""vim-javascript"""""""""""""""""""""""""""
+let g:javascript_enable_domhtmlcss = 1
+"""""""""""""""""""""""""""vim-javascript"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""closetag"""""""""""""""""""""""""""
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml"
+"""""""""""""""""""""""""""closetag"""""""""""""""""""""""""""
