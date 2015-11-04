@@ -262,6 +262,9 @@ let g:airline_powerline_fonts = 1
 let g:UltiSnipsJumpForwardTrigger="<c-b>" 
 let g:UltiSnipsExpandTrigger="<c-e>"
 "let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容YCM
+if filereadable('userinfo.vim')    "插入 snippets 所需的个人信息
+    source ./userinfo.vim
+endif
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 """""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
 """Code from:https://github.com/nelstrom/vim-visual-star-search/blob/master/plugin/visual-star-search.vim
