@@ -78,12 +78,7 @@ set fileformats=unix,dos "优先选择Unix换行符
 set colorcolumn=80
 set cursorline  "显示当前行位置
 
-"set autochdir  "自动切换工作目录
-"set background=light 
-"let g:solarized_termcolors=256
-"colorscheme solarized   "设置配色方案
-colorscheme molokai
-set fileencoding=utf-8
+set autochdir  "自动切换工作目录
 nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -152,6 +147,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'davidhalter/jedi-vim'
 """""""D
 Plug 'idanarye/vim-dutyl'
+Plug 'JesseKPhillips/d.vim'
 
 """""""""""Web
 """""""html/js
@@ -165,6 +161,11 @@ Plug 'captbaritone/better-indent-support-for-php-with-html'
 
 call plug#end()
 filetype plugin indent on
+
+"set background=light
+"let g:solarized_termcolors=256
+"colorscheme solarized   "设置配色方案
+colorscheme molokai
 """""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-jedi"""""""""""""""""""""""""""
 let g:jedi#force_py_version = 3
