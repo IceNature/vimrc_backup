@@ -116,6 +116,7 @@ call plug#begin(expand($VIM).'/vimfiles/bundle')
 """""""""""Common
 Plug 'majutsushi/tagbar'
 Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/context_filetype.vim'
 Plug 'SirVer/ultisnips'
 Plug 'scrooloose/syntastic'
 Plug 'bling/vim-airline'
@@ -281,26 +282,6 @@ endfunction
 xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""PHPSinp"""""""""""""""""""""""""""
-augroup PHPSnip
-    autocmd!
-    autocmd FileType php call loadHTMLSnippets()
-augroup END
-function! loadHTMLSnippets()
-    "For UltiSnips
-    if exists(':UltiSnipsAddFiletypes')
-        exe 'UltiSnipsAddFiletypes php.html'
-    endif
-    "For SnipMate
-    if exists(':SnipMateLoadScope')
-        exe 'SnipMateLoadScope html'
-    endif
-    "For NeoSnippet
-    if exists(':NeoSnippetSource')
-        exe 'NeoSnippetSource html'
-    endif
-endfunction
-"""""""""""""""""""""""""""PHPSinp"""""""""""""""""""""""""""
 """""""""""""""""""""""""""rainbow"""""""""""""""""""""""""""
 let g:rainbow_active = 1
 """""""""""""""""""""""""""rainbow"""""""""""""""""""""""""""
