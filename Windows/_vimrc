@@ -117,7 +117,7 @@ call plug#begin(expand($VIM).'/vimfiles/bundle')
 Plug 'majutsushi/tagbar'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/context_filetype.vim'
-Plug 'SirVer/ultisnips'
+Plug 'Shougo/neosnippet'
 Plug 'scrooloose/syntastic'
 Plug 'bling/vim-airline'
 Plug 'jiangmiao/auto-pairs'
@@ -200,7 +200,7 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
     return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
@@ -224,6 +224,22 @@ let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w
 
 inoremap <silent><A-/> <c-x><c-o>
 """""""""""""""""""""""""""neocomplete"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""neosnippet"""""""""""""""""""""""""""
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+if has('conceal')
+    set conceallevel=2 concealcursor=niv
+endif
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory=$VIM.'/vimfiles/bundle/vim-snippets/snippets'
+let g:neosnippet#disable_runtime_snippets = { '_' : 1}
+if filereadable('userinfo.vim')    "插入 snippets 所需的个人信息
+    source ./userinfo.vim
+endif
+"""""""""""""""""""""""""""neosnippet"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
 let g:formatdef_my_custom_d = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 let g:formatters_d = ['my_custom_d']
@@ -264,12 +280,12 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
-let g:UltiSnipsJumpForwardTrigger="<c-b>" 
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容 clang_complete
-if filereadable('userinfo.vim')    "插入 snippets 所需的个人信息
-    source ./userinfo.vim
-endif
+"let g:UltiSnipsJumpForwardTrigger="<c-b>" 
+"let g:UltiSnipsExpandTrigger="<c-e>"
+"let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容 clang_complete
+"if filereadable('userinfo.vim')    "插入 snippets 所需的个人信息
+    "source ./userinfo.vim
+"endif
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 """""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
 """Code from:https://github.com/nelstrom/vim-visual-star-search/blob/master/plugin/visual-star-search.vim
