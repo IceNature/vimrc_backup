@@ -220,7 +220,7 @@ let g:neocomplete#force_omni_input_patterns.d = '\%([^. \t]\.\|^\s*@\|^\s*import
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?\|$\%(\h\w*\)\?\|</\?[^>]\{-}>\|<[^>]\{-}\s\+/>'
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?\|$\%(\h\w*\)\?'
 
 inoremap <silent><A-/> <c-x><c-o>
 """""""""""""""""""""""""""neocomplete"""""""""""""""""""""""""""
