@@ -110,7 +110,6 @@ augroup END
 
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
-set nocompatible
 call plug#begin(expand($VIM).'/vimfiles/bundle')
 
 """""""""""Common
