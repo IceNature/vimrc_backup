@@ -261,6 +261,7 @@ nnoremap <leader>gtf :!ctags -R --exclude=.git<CR>
 set tags=tags
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
+let g:tagbar_width = 25
 let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:functions',  'g:enums',  'u:unions',  's:structs',  'm:members'  ], 'sro': '.',  'kind2scope' : {  'c' : 'class',  'g' : 'enum',  's' : 'struct',  'u' : 'union' },  'scope2kind' : {  'enum' : 'g',  'class' : 'c',  'struct' : 's',  'union' : 'u'  }  }
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
