@@ -77,6 +77,7 @@ set wildmenu  "命令行补全菜单
 set fileformats=unix,dos "优先选择Unix换行符
 set colorcolumn=80
 set cursorline  "显示当前行位置
+set cursorcolumn   "显示当前列位置
 
 set autochdir  "自动切换工作目录
 nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
