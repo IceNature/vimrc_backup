@@ -79,7 +79,7 @@ set colorcolumn=80
 set cursorline  "显示当前行位置
 set cursorcolumn   "显示当前列位置
 
-set autochdir  "自动切换工作目录
+"set autochdir  "自动切换工作目录
 nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
