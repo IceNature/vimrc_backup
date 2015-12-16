@@ -102,7 +102,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'alvan/vim-closetag'
 """""""PHP
 Plug 'shawncplus/phpcomplete.vim'
-Plug 'captbaritone/better-indent-support-for-php-with-html'
+Plug '2072/PHP-Indenting-for-VIm'
+"Plug 'captbaritone/better-indent-support-for-php-with-html'
 
 call plug#end()
 filetype plugin indent on
