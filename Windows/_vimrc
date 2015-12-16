@@ -256,7 +256,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
-nnoremap <leader>gtf :!ctags -R --exclude=.git<CR>
+nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git<CR>
 set tags=tags
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
