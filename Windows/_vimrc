@@ -54,62 +54,6 @@ function! MyDiff()
     endif
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-"""""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
-set number "显示行号
-syntax on "语法高亮度显示
-filetype on  "检测文件的类型
-set autoindent "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
-set cindent "（cindent是特别针对 C语言语法自动缩进）
-set tabstop=4
-set softtabstop=4  "缩进相关
-set shiftwidth=4
-set expandtab "展开Tab
-set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
-set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
-set incsearch "搜索时自动高亮第一个匹配项
-set hlsearch "高亮搜索匹配项
-set ignorecase smartcase "智能匹配大小写
-set hidden "隐藏未保存缓冲区
-let mapleader=',' "leader映射为逗号
-noremap \ ,    "映射逗号为\
-set wildmode=full
-set wildmenu  "命令行补全菜单
-set fileformats=unix,dos "优先选择Unix换行符
-set colorcolumn=80
-set cursorline  "显示当前行位置
-set cursorcolumn   "显示当前列位置
-
-"set autochdir  "自动切换工作目录
-nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
-nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <silent> <leader>af :update<CR>:Autoformat<CR>:update<CR>
-nnoremap <silent> <leader>bn :bn<CR>
-nnoremap <silent> <leader>bp :bp<CR>
-nnoremap <silent> <leader>wj <C-w>j
-nnoremap <silent> <leader>wk <C-w>k
-nnoremap <silent> <leader>wl <C-w>l
-nnoremap <silent> <leader>wh <C-w>h
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-nnoremap <silent> <leader>nl :nohl<CR>
-nnoremap <silent> <leader>qo :copen<CR>
-nnoremap <silent> <leader>qc :cclose<CR>
-nnoremap <leader>qn :cnext<CR>
-nnoremap <leader>qp :cprev<CR>
-nnoremap <silent> <leader>lo :lopen<CR>
-nnoremap <silent> <leader>lc :lclose<CR>
-nnoremap <leader>ln :lnext<CR>
-nnoremap <leader>lp :lprev<CR>
-nnoremap <silent> <leader>rp :!E:/DeveloperTools/Python34/python.exe %<CR>
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
-set guifontwide=Microsoft_YaHei:h12
-"""""""Markdown
-augroup markdownACMD
-    autocmd!
-    autocmd FileType markdown setlocal spell
-augroup END
-
-"""""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
 call plug#begin(expand($VIM).'/vimfiles/bundle')
 
@@ -162,12 +106,67 @@ Plug 'captbaritone/better-indent-support-for-php-with-html'
 
 call plug#end()
 filetype plugin indent on
+"""""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
+set number "显示行号
+syntax on "语法高亮度显示
+filetype on  "检测文件的类型
+set autoindent "vim使用自动对齐，也就是把当前行的对齐格式应用到下一行(自动缩进）
+set cindent "（cindent是特别针对 C语言语法自动缩进）
+set tabstop=4
+set softtabstop=4  "缩进相关
+set shiftwidth=4
+set expandtab "展开Tab
+set smartindent "依据上面的对齐格式，智能的选择对齐方式，对于类似C语言编写上有用
+set showmatch "设置匹配模式，类似当输入一个左括号时会匹配相应的右括号
+set incsearch "搜索时自动高亮第一个匹配项
+set hlsearch "高亮搜索匹配项
+set ignorecase smartcase "智能匹配大小写
+set hidden "隐藏未保存缓冲区
+let mapleader=',' "leader映射为逗号
+noremap \ ,    "映射逗号为\
+set wildmode=full
+set wildmenu  "命令行补全菜单
+set fileformats=unix,dos "优先选择Unix换行符
+set colorcolumn=80
+set cursorline  "显示当前行位置
+set cursorcolumn   "显示当前列位置
 
 "set background=light
 "let g:solarized_termcolors=256
 "colorscheme solarized   "设置配色方案
 colorscheme molokai
-"""""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
+"set autochdir  "自动切换工作目录
+nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <silent> <leader>af :update<CR>:Autoformat<CR>:update<CR>
+nnoremap <silent> <leader>bn :bn<CR>
+nnoremap <silent> <leader>bp :bp<CR>
+nnoremap <silent> <leader>wj <C-w>j
+nnoremap <silent> <leader>wk <C-w>k
+nnoremap <silent> <leader>wl <C-w>l
+nnoremap <silent> <leader>wh <C-w>h
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+nnoremap <silent> <leader>nl :nohl<CR>
+nnoremap <silent> <leader>qo :copen<CR>
+nnoremap <silent> <leader>qc :cclose<CR>
+nnoremap <leader>qn :cnext<CR>
+nnoremap <leader>qp :cprev<CR>
+nnoremap <silent> <leader>lo :lopen<CR>
+nnoremap <silent> <leader>lc :lclose<CR>
+nnoremap <leader>ln :lnext<CR>
+nnoremap <leader>lp :lprev<CR>
+nnoremap <silent> <leader>rp :!E:/DeveloperTools/Python34/python.exe %<CR>
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
+set guifontwide=Microsoft_YaHei:h12
+"""""""Markdown
+augroup markdownACMD
+    autocmd!
+    autocmd FileType markdown setlocal spell
+augroup END
+
+"""""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-jedi"""""""""""""""""""""""""""
 let g:jedi#force_py_version = 3
 let g:jedi#completions_enabled = 0
