@@ -181,6 +181,8 @@ let g:clang_use_library = 1
 let g:clang_restore_cr_imap = ''
 let g:clang_complete_copen = 0
 let g:clang_periodic_quickfix = 0
+let g:clang_complete_macros = 1
+let g:clang_complete_patterns = 1
 let g:clang_user_options='-std=c++11 -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++ -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++/mingw32 -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++/backward -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include-fixed -IE:/developertools/TDM-GCC/include'
 "let g:AutoPairsMapCR = 0   "修复 auto-pairs 回车键冲突
 "imap <silent><CR> <CR><Plug>AutoPairsReturn
