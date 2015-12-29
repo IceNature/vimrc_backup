@@ -222,7 +222,7 @@ let g:neocomplete#force_omni_input_patterns.d = '\%([^. \t]\.\|^\s*@\|^\s*import
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?\|$\%(\h\w*\)\?'
+let g:neocomplete#sources#omni#input_patterns.php = '\%([^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?\|$\%(\h\w*\)\?\)\|\%(<\|\s[[:alnum:]-]*\)\|\%(^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]\)'
 
 inoremap <silent><A-/> <c-x><c-o>
 """""""""""""""""""""""""""neocomplete"""""""""""""""""""""""""""
@@ -238,6 +238,7 @@ endif
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory=$VIM.'/vimfiles/bundle/vim-snippets/snippets'
 let g:neosnippet#disable_runtime_snippets = { '_' : 1}
+autocmd FileType php NeoSnippetSource $VIM/vimfiles/bundle/vim-snippets/snippets/html.snippets
 if filereadable('userinfo.vim')    "插入 snippets 所需的个人信息
     source ./userinfo.vim
 endif
