@@ -1,1 +1,0 @@
-C:\Windows\System32\cmd.exe /A /Q /K E:\DeveloperTools\msys2\mingw32_shell.bat
