@@ -59,10 +59,9 @@ endfunction
 call plug#begin(expand($VIM).'/vimfiles/bundle')
 
 """""""""""Common
+Plug 'Valloric/YouCompleteMe'
+Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar'
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/neosnippet'
 Plug 'scrooloose/syntastic'
 Plug 'bling/vim-airline'
 Plug 'jiangmiao/auto-pairs'
@@ -85,12 +84,9 @@ Plug 'tomasr/molokai'
 
 """""""""""Desktop
 """""""C/C++
-Plug 'Rip-Rip/clang_complete'
 Plug 'twatan/vim-cmake-dict'
 Plug 'taxilian/a.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
 """""""Python
-Plug 'davidhalter/jedi-vim'
 """""""D
 Plug 'idanarye/vim-dutyl'
 Plug 'JesseKPhillips/d.vim'
@@ -169,81 +165,6 @@ augroup markdownACMD
 augroup END
 
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""vim-jedi"""""""""""""""""""""""""""
-let g:jedi#force_py_version = 3
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-"""""""""""""""""""""""""""vim-jedi"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""clang_complete"""""""""""""""""""""""""""
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_default_keymappings = 0
-let g:clang_use_library = 1
-let g:clang_restore_cr_imap = ''
-let g:clang_complete_copen = 0
-let g:clang_periodic_quickfix = 0
-let g:clang_complete_macros = 1
-let g:clang_complete_patterns = 1
-let g:clang_user_options='-std=c++11 -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++ -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++/mingw32 -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++/backward -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include -IE:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include-fixed -IE:/developertools/TDM-GCC/include'
-"let g:AutoPairsMapCR = 0   "修复 auto-pairs 回车键冲突
-"imap <silent><CR> <CR><Plug>AutoPairsReturn
-"""""""""""""""""""""""""""clang_complete"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""neocomplete"""""""""""""""""""""""""""
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 1
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplete#sources#dictionary#dictionaries = {'default' : '' , 'cmake' : $VIM.'/vimfiles/bundle/vim-cmake-dict/dict/cmake.dict'}
-if !exists('g:neocomplete#keyword_patterns') 
-    let g:neocomplete#keyword_patterns = {} 
-endif 
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-inoremap <expr><C-g> neocomplete#undo_completion()
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-    return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-"inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<Tab>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType python setlocal omnifunc=jedi#completions
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-let g:neocomplete#force_omni_input_patterns.cpp ='[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-let g:neocomplete#force_omni_input_patterns.d = '\%([^. \t]\.\|^\s*@\|^\s*import\s\+\%(\%(\h\w\+\%([:=]\h\w+\)\?\)\+\s*,\s*\)*\%(\h\w\+[:=]\)*\)\w*'
-
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '\%([^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?\|$\%(\h\w*\)\?\)\|\%(<\|\s[[:alnum:]-]*\)\|\%(^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]\)'
-
-inoremap <silent><A-/> <c-x><c-o>
-"""""""""""""""""""""""""""neocomplete"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""neosnippet"""""""""""""""""""""""""""
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-imap <expr><TAB> pumvisible() ? "\<C-n>" : neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-if has('conceal')
-    set conceallevel=2 concealcursor=niv
-endif
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory=$VIM.'/vimfiles/bundle/vim-snippets/snippets'
-let g:neosnippet#disable_runtime_snippets = { '_' : 1}
-autocmd FileType php NeoSnippetSource $VIM/vimfiles/bundle/vim-snippets/snippets/html.snippets
-if filereadable('userinfo.vim')    "插入 snippets 所需的个人信息
-    source ./userinfo.vim
-endif
-"""""""""""""""""""""""""""neosnippet"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
 let g:formatdef_my_custom_d = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 let g:formatters_d = ['my_custom_d']
@@ -285,12 +206,12 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
-"let g:UltiSnipsJumpForwardTrigger="<c-b>" 
-"let g:UltiSnipsExpandTrigger="<c-e>"
-"let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容 clang_complete
-"if filereadable('userinfo.vim')    "插入 snippets 所需的个人信息
-    "source ./userinfo.vim
-"endif
+let g:UltiSnipsJumpForwardTrigger="<c-b>" 
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容 clang_complete
+if exists('$VIM/userinfo.vim')    "插入 snippets 所需的个人信息
+    source $VIM/userinfo.vim
+endif
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 """""""""""""""""""""""""""visual-star-search"""""""""""""""""""""""""""
 """Code from:https://github.com/nelstrom/vim-visual-star-search/blob/master/plugin/visual-star-search.vim
@@ -316,3 +237,17 @@ let g:html_indent_script1 = "inc"	" 缩进<script>标签
 let g:html_indent_style1 = "inc"	" 缩进<style>标签
 runtime macros/matchit.vim   "支持使用 % 在 XML 标签间跳转
 """""""""""""""""""""""""""HTML"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
+let g:ycm_global_ycm_extra_conf = 'E:\DeveloperTools\vim\.ycm_extra_conf.py'
+let g:ycm_key_invoke_completion = '<A-/>'
+let g:ycm_python_binary_path = 'E:/DeveloperTools/Python35/python.exe'
+let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_complete_in_comments = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_always_populate_location_list = 1
+let g:ycm_semantic_triggers = {
+    \ 'python' : ['import ', 'from '],
+    \ 'd' : ['import '],
+    \ 'php' : ['->', '$']
+    \ }
+"""""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
