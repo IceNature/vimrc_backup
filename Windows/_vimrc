@@ -206,8 +206,9 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
-let g:UltiSnipsJumpForwardTrigger="<c-b>" 
-let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<C-N>" 
+let g:UltiSnipsJumpBackwardTrigger="<C-P>"
+let g:UltiSnipsExpandTrigger="<C-E>"
 let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容 clang_complete
 if exists('$VIM/userinfo.vim')    "插入 snippets 所需的个人信息
     source $VIM/userinfo.vim
