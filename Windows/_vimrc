@@ -77,15 +77,20 @@ Plug 'tpope/vim-surround'
 Plug 'dkprice/vim-easygrep'
 Plug 'honza/vim-snippets'
 Plug 'tomasr/molokai'
-Plug 'iamcco/markdown-preview.vim'
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'chriskempson/base16-vim'
 "Plug 'chriskempson/base16-shell'
 "Plug 'richq/cmakecompletion-vim'
+Plug 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
 
+"""""""Markdown
+Plug 'iamcco/markdown-preview.vim'
 """""""""""Desktop
 """""""C/C++
-Plug 'twatan/vim-cmake-dict'
+"Plug 'twatan/vim-cmake-dict'
+"au FileType cmake set dictionary+=$VIM/vimfiles/bundle/vim-cmake-dict/dict/cmake.dict
+"Plug 'richq/vim-cmake-completion'
 Plug 'taxilian/a.vim'
 """""""D
 Plug 'idanarye/vim-dutyl'
@@ -246,12 +251,24 @@ let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_always_populate_location_list = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_semantic_triggers = {
     \ 'python' : ['import ', 'from '],
     \ 'd' : ['import '],
     \ 'php' : ['$']
     \ }
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'qf' : 1,
+      \ 'notes' : 1,
+      \ 'unite' : 1,
+      \ 'vimwiki' : 1,
+      \ 'pandoc' : 1,
+      \ 'infolog' : 1,
+      \ 'mail' : 1
+      \}
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""markdown-preview"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
 let g:mkdp_path_to_chrome = 'C:/Program Files (x86)/Mozilla Firefox/firefox.exe'
-"""""""""""""""""""""""""""markdown-preview"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
