@@ -59,14 +59,8 @@ flags = [
 # For a C project, you would set this to 'c' instead of 'c++'.
 '-x',
 'c++',
-'-isystem',
-# This path will only work on OS X, but extra paths that don't exist are not
-# harmful
-'/System/Library/Frameworks/Python.framework/Headers',
 '-I',
 '.',
-'-I',
-'./ClangCompleter',
 '-isystem',
 'E:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++',
 '-isystem',
@@ -75,7 +69,15 @@ flags = [
 'E:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include',
 '-isystem',
 'E:/developertools/TDM-GCC/include',
+# wxWidgets include
+# '-I',
+# 'E:/DeveloperTools/wxWidgets/include',
+# CUDA include 
+# '-I',
+# 'E:/DeveloperTools/CUDAToolkit/include',
 ]
+
+
 # Set this to the absolute path to the folder (NOT the file!) containing the
 # compile_commands.json file to use that instead of 'flags'. See here for
 # more details: http://clang.llvm.org/docs/JSONCompilationDatabase.html
