@@ -214,7 +214,7 @@ let g:airline_powerline_fonts = 1
 let g:UltiSnipsJumpForwardTrigger="<C-N>" 
 let g:UltiSnipsJumpBackwardTrigger="<C-P>"
 let g:UltiSnipsExpandTrigger="<C-E>"
-let g:UltiSnipsUsePythonVersion = 2 "US强制使用Python 2.X以兼容 clang_complete
+let g:UltiSnipsUsePythonVersion = 3 
 if exists('$VIM/userinfo.vim')    "插入 snippets 所需的个人信息
     source $VIM/userinfo.vim
 endif
