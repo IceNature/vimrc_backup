@@ -16,31 +16,31 @@
 
 插件管理器：[vim-plug](https://github.com/junegunn/vim-plug)
 
-    Valloric/YouCompleteMe
-    SirVer/ultisnips
-    majutsushi/tagbar
-    scrooloose/syntastic
-    bling/vim-airline
-    jiangmiao/auto-pairs
-    DataWraith/auto_mkdir
-    Yggdroot/LeaderF
-    Chiel92/vim-autoformat
-    Yggdroot/indentLine
-    scrooloose/nerdcommenter
-    tpope/vim-fugitive
-    luochen1990/rainbow
-    lilydjwg/colorizer
-    tpope/vim-surround
-    dkprice/vim-easygrep
-    honza/vim-snippets
-    tomasr/molokai
-    iamcco/markdown-preview.vim
-    twatan/vim-cmake-dict
-    taxilian/a.vim
-    idanarye/vim-dutyl
-    JesseKPhillips/d.vim
-    othree/html5.vim
-    hail2u/vim-css3-syntax
-    pangloss/vim-javascript
-    alvan/vim-closetag
-    shawncplus/phpcomplete.vim
+    Plug 'Valloric/YouCompleteMe'
+    Plug 'SirVer/ultisnips'
+    Plug 'majutsushi/tagbar'
+    Plug 'scrooloose/syntastic'
+    Plug 'bling/vim-airline'
+    Plug 'Raimondi/delimitMate'
+    Plug 'DataWraith/auto_mkdir'
+    Plug 'Yggdroot/LeaderF'
+    Plug 'Chiel92/vim-autoformat'
+    Plug 'Yggdroot/indentLine'
+    Plug 'scrooloose/nerdcommenter'
+    Plug 'tpope/vim-fugitive'
+    Plug 'luochen1990/rainbow'
+    Plug 'lilydjwg/colorizer'
+    Plug 'tpope/vim-surround'
+    Plug 'dkprice/vim-easygrep'
+    Plug 'honza/vim-snippets'
+    Plug 'tomasr/molokai'
+    Plug 'elzr/vim-json'
+    Plug 'iamcco/markdown-preview.vim'
+    Plug 'taxilian/a.vim'
+    Plug 'idanarye/vim-dutyl'
+    Plug 'JesseKPhillips/d.vim'
+    Plug 'othree/html5.vim'
+    Plug 'hail2u/vim-css3-syntax'
+    Plug 'pangloss/vim-javascript'
+    Plug 'shawncplus/phpcomplete.vim'
+
