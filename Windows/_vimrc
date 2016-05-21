@@ -77,7 +77,7 @@ Plug 'tpope/vim-surround'
 Plug 'dkprice/vim-easygrep'
 Plug 'honza/vim-snippets'
 Plug 'tomasr/molokai'
-"Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 "Plug 'chriskempson/base16-vim'
 "Plug 'chriskempson/base16-shell'
 "Plug 'richq/cmakecompletion-vim'
@@ -134,7 +134,7 @@ set colorcolumn=80
 set cursorline  "显示当前行位置
 set cursorcolumn   "显示当前列位置
 
-"set background=light
+"set background=dark
 "let g:solarized_termcolors=256
 "colorscheme solarized   "设置配色方案
 colorscheme molokai
@@ -161,6 +161,7 @@ nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprev<CR>
 nnoremap <silent> <leader>rp :!E:/DeveloperTools/Python35/python.exe %<CR>
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
+"set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 set guifontwide=Microsoft_YaHei:h13
 """""""Markdown
 augroup markdownACMD
@@ -196,7 +197,7 @@ let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:fun
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 "call dutyl#register#tool('dcd-client','E:/DeveloperTools/DCD/dcd-client.exe') 
 "call dutyl#register#tool('dcd-server','E:/DeveloperTools/DCD/dcd-server.exe')
-let g:dutyl_stdImportPaths=['E:/DeveloperTools/dmd2/src/phobos', 'E:/DeveloperTools/dmd2/src/druntime/import', 'E:/DeveloperTools/dmd2/src/tango']
+let g:dutyl_stdImportPaths=['E:/DeveloperTools/Dlang/dmd2/src/phobos', 'E:/DeveloperTools/Dlang/dmd2/src/druntime/import', 'E:/DeveloperTools/Dlang/dmd2/src/tango']
 let g:dutyl_neverAddClosingParen = 1
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
