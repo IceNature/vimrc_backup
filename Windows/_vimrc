@@ -185,6 +185,8 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
 let g:syntastic_python_python_exec = 'E:/DeveloperTools/Python35' 
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_d_compiler = 'E:/DeveloperTools/Dlang/dmd2/windows/bin/dmd'
+let g:syntastic_d_dub_exec = 'E:/DeveloperTools/Dlang/dub/dub'
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git<CR>
