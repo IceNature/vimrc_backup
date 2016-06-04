@@ -78,11 +78,13 @@ Plug 'dkprice/vim-easygrep'
 Plug 'honza/vim-snippets'
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
+Plug 'Shougo/vimproc.vim'
 "Plug 'chriskempson/base16-vim'
 "Plug 'chriskempson/base16-shell'
 "Plug 'richq/cmakecompletion-vim'
 Plug 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
+Plug 'mhinz/vim-startify'
 
 """""""Markdown
 Plug 'iamcco/markdown-preview.vim'
