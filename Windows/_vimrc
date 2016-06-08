@@ -55,6 +55,14 @@ function! MyDiff()
     endif
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+"""""""""""""""""""""""""""Compile"""""""""""""""""""""""""""
+
+function! CompileVimProc()
+    system("E:\DeveloperTools\Microsoft Visual Studio 14.0\VC\vcvarsall.bat amd64")
+    !nmake -f make_msvc.mak nodebug=1 "SDK_INCLUDE_DIR=C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include" CPU=AMD64
+endfunction
+
+"""""""""""""""""""""""""""Compile"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
 call plug#begin(expand($VIM).'/vimfiles/bundle')
 
@@ -78,7 +86,7 @@ Plug 'dkprice/vim-easygrep'
 Plug 'honza/vim-snippets'
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
-Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim' , { 'do': function('CompileVimProc') }
 "Plug 'chriskempson/base16-vim'
 "Plug 'chriskempson/base16-shell'
 "Plug 'richq/cmakecompletion-vim'
