@@ -57,9 +57,11 @@ function! MyDiff()
 endfunction
 """""""""""""""""""""""""""Compile"""""""""""""""""""""""""""
 
-function! CompileVimProc()
-    system("E:\DeveloperTools\Microsoft Visual Studio 14.0\VC\vcvarsall.bat amd64")
-    !nmake -f make_msvc.mak nodebug=1 "SDK_INCLUDE_DIR=C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include" CPU=AMD64
+function! CompileVimProc(info)
+    if a:info.status == 'updated' || a:info.force
+        system("E:\DeveloperTools\Microsoft Visual Studio 14.0\VC\vcvarsall.bat amd64")
+        !nmake -f make_msvc.mak nodebug=1 "SDK_INCLUDE_DIR=C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include" CPU=AMD64
+    endif
 endfunction
 
 """""""""""""""""""""""""""Compile"""""""""""""""""""""""""""
