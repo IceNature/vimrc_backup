@@ -59,8 +59,19 @@ endfunction
 
 function! CompileVimProc(info)
     if a:info.status == 'updated' || a:info.force
+        let l:original_path = $PATH
         system("E:\DeveloperTools\Microsoft Visual Studio 14.0\VC\vcvarsall.bat amd64")
         !nmake -f make_msvc.mak nodebug=1 "SDK_INCLUDE_DIR=C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include" CPU=AMD64
+        let $PATH = l:original_path
+    endif
+endfunction
+
+function! CompileYCM(info)
+    if a:info.status == 'updated' || a:info.force
+        let l:original_path = $PATH
+        let $PATH.=";"."E:/DeveloperTools/CMake/bin;E:/DeveloperTools/Python35"
+        !python install.py --clang-completer
+        let $PATH = l:original_path
     endif
 endfunction
 
