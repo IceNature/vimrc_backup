@@ -55,27 +55,6 @@ function! MyDiff()
     endif
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-"""""""""""""""""""""""""""Compile"""""""""""""""""""""""""""
-
-function! CompileVimProc(info)
-    if a:info.status == 'updated' || a:info.force
-        let l:original_path = $PATH
-        system("E:\DeveloperTools\Microsoft Visual Studio 14.0\VC\vcvarsall.bat amd64")
-        !nmake -f make_msvc.mak nodebug=1 "SDK_INCLUDE_DIR=C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include" CPU=AMD64
-        let $PATH = l:original_path
-    endif
-endfunction
-
-function! CompileYCM(info)
-    if a:info.status == 'updated' || a:info.force
-        let l:original_path = $PATH
-        let $PATH.=";"."E:/DeveloperTools/CMake/bin;E:/DeveloperTools/Python35"
-        !python install.py --clang-completer
-        let $PATH = l:original_path
-    endif
-endfunction
-
-"""""""""""""""""""""""""""Compile"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
 call plug#begin(expand($VIM).'/vimfiles/bundle')
 
@@ -99,7 +78,7 @@ Plug 'dkprice/vim-easygrep'
 Plug 'honza/vim-snippets'
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
-Plug 'Shougo/vimproc.vim' , { 'do': function('CompileVimProc') }
+Plug 'Shougo/vimproc.vim'
 "Plug 'chriskempson/base16-vim'
 "Plug 'chriskempson/base16-shell'
 "Plug 'richq/cmakecompletion-vim'
@@ -116,7 +95,7 @@ Plug 'iamcco/markdown-preview.vim'
 "Plug 'richq/vim-cmake-completion'
 Plug 'taxilian/a.vim'
 """""""D
-Plug 'idanarye/vim-dutyl'
+Plug 'idanarye/vim-dutyl', {'branch': 'develop'}
 Plug 'JesseKPhillips/d.vim'
 
 """""""""""Web
@@ -190,6 +169,11 @@ set guifontwide=Microsoft_YaHei:h13
 augroup markdownACMD
     autocmd!
     autocmd FileType markdown setlocal spell
+augroup END
+augroup dubjson
+    autocmd!
+    autocmd BufEnter dub.json set noexpandtab
+    autocmd BufLeave dub.json set expandtab
 augroup END
 
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
