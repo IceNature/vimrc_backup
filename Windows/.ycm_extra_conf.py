@@ -37,15 +37,15 @@ import ycm_core
 flags = [
 '-Wall',
 '-Wextra',
-'-Werror',
-'-Wc++98-compat',
+# '-Werror',
 '-Wno-long-long',
 '-Wno-variadic-macros',
 '-fexceptions',
 '-DNDEBUG',
-# You 100% do NOT need -DUSE_CLANG_COMPLETER in your flags; only the YCM
-# source code needs it.
-'-DUSE_CLANG_COMPLETER',
+'-fms-extensions',
+'-fno-delayed-template-parsing',
+'-fno-ms-compatibility',
+'-fno-short-enums',
 # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know which
 # language to use when compiling headers. So it will guess. Badly. So C++
 # headers will be compiled as C headers. You don't want that so ALWAYS specify
@@ -61,6 +61,8 @@ flags = [
 'c++',
 '-I',
 '.',
+# '-isystem',
+# 'C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Include',
 '-isystem',
 'E:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++',
 '-isystem',
@@ -69,12 +71,12 @@ flags = [
 'E:/developertools/TDM-GCC/lib/gcc/mingw32/5.1.0/include',
 '-isystem',
 'E:/developertools/TDM-GCC/include',
-# wxWidgets include
-# '-I',
-# 'E:/DeveloperTools/wxWidgets/include',
-# CUDA include 
-# '-I',
-# 'E:/DeveloperTools/CUDAToolkit/include',
+# '-isystem',
+# 'E:/DeveloperTools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++/tr1',
+'-isystem',
+'E:/DeveloperTools/TDM-GCC/lib/gcc/mingw32/5.1.0/include/c++/backward',
+'-isystem',
+'E:/DeveloperTools/TDM-GCC/lib/gcc/mingw32/5.1.0/include-fixed',
 ]
 
 
@@ -176,7 +178,4 @@ def FlagsForFile( filename, **kwargs ):
     relative_to = DirectoryOfThisScript()
     final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )
 
-  return {
-    'flags': final_flags,
-    'do_cache': True
-  }
+  return { 'flags': final_flags }
