@@ -86,6 +86,8 @@ Plug 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 Plug 'mhinz/vim-startify'
 
+"Plug 'Rip-Rip/clang_complete'
+
 """""""Markdown
 Plug 'iamcco/markdown-preview.vim'
 """""""""""Desktop
@@ -135,6 +137,8 @@ set fileformats=unix,dos "优先选择Unix换行符
 set colorcolumn=80
 set cursorline  "显示当前行位置
 set cursorcolumn   "显示当前列位置
+set nobackup
+set noundofile
 
 "set background=dark
 "let g:solarized_termcolors=256
@@ -285,3 +289,5 @@ let delimitMate_balance_matchpairs = 1
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
 """""""""""""""""""""""""""delimitMate"""""""""""""""""""""""""""
+let g:clang_use_library=1
+let g:clang_library_path=expand('$VIM/ExtraTools/libclang.dll')
