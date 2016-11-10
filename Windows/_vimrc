@@ -150,6 +150,7 @@ nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <silent> <leader>af :update<CR>:Autoformat<CR>:update<CR>
+nnoremap <silent> <leader>dsl :global /^\n*$/ d
 nnoremap <silent> <leader>bn :bn<CR>
 nnoremap <silent> <leader>bp :bp<CR>
 nnoremap <silent> <leader>wj <C-w>j
