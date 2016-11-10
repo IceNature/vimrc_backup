@@ -86,10 +86,9 @@ Plug 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 Plug 'mhinz/vim-startify'
 
-"Plug 'Rip-Rip/clang_complete'
-
 """""""Markdown
 Plug 'iamcco/markdown-preview.vim'
+
 """""""""""Desktop
 """""""C/C++
 "Plug 'twatan/vim-cmake-dict'
@@ -139,6 +138,8 @@ set cursorline  "显示当前行位置
 set cursorcolumn   "显示当前列位置
 set nobackup
 set noundofile
+set noerrorbells
+set novisualbell
 
 "set background=dark
 "let g:solarized_termcolors=256
@@ -157,11 +158,9 @@ nnoremap <silent> <leader>wl <C-w>l
 nnoremap <silent> <leader>wh <C-w>h
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 nnoremap <silent> <leader>nl :nohl<CR>
-nnoremap <silent> <leader>qo :copen<CR>
 nnoremap <silent> <leader>qc :cclose<CR>
 nnoremap <leader>qn :cnext<CR>
 nnoremap <leader>qp :cprev<CR>
-nnoremap <silent> <leader>lo :lopen<CR>
 nnoremap <silent> <leader>lc :lclose<CR>
 nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprev<CR>
@@ -204,7 +203,7 @@ nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git<CR>
 set tags=tags
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
-"let g:tagbar_width = 25
+let g:tagbar_width = 30
 let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:functions',  'g:enums',  'u:unions',  's:structs',  'm:members'  ], 'sro': '.',  'kind2scope' : {  'c' : 'class',  'g' : 'enum',  's' : 'struct',  'u' : 'union' },  'scope2kind' : {  'enum' : 'g',  'class' : 'c',  'struct' : 's',  'union' : 'u'  }  }
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
@@ -289,5 +288,7 @@ let delimitMate_balance_matchpairs = 1
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
 """""""""""""""""""""""""""delimitMate"""""""""""""""""""""""""""
-let g:clang_use_library=1
-let g:clang_library_path=expand('$VIM/ExtraTools/libclang.dll')
+"""""""""""""""""""""""""""Grep"""""""""""""""""""""""""""
+set grepprg=pt
+let g:EasyGrepCommand=1
+"""""""""""""""""""""""""""Grep"""""""""""""""""""""""""""
