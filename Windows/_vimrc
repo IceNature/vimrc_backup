@@ -165,6 +165,7 @@ nnoremap <leader>qp :cprev<CR>
 nnoremap <silent> <leader>lc :lclose<CR>
 nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprev<CR>
+nnoremap <leader>t :LeaderfBufTag<CR>
 nnoremap <silent> <leader>rp :!E:/DeveloperTools/Python35/python.exe %<CR>
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
 "set guifont=Source\ Code\ Pro\ for\ Powerline:h12
@@ -282,7 +283,7 @@ let g:ycm_filetype_blacklist = {
       \}
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
 """""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
-let g:mkdp_path_to_chrome = 'C:/Program Files (x86)/Mozilla Firefox/firefox.exe'
+let g:mkdp_path_to_chrome = 'C:/Program Files/Mozilla Firefox/firefox.exe'
 """""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
 """""""""""""""""""""""""""delimitMate"""""""""""""""""""""""""""
 let delimitMate_balance_matchpairs = 1
