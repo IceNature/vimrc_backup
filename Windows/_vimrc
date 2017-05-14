@@ -128,6 +128,7 @@ set incsearch "搜索时自动高亮第一个匹配项
 set hlsearch "高亮搜索匹配项
 set ignorecase smartcase "智能匹配大小写
 set hidden "隐藏未保存缓冲区
+set conceallevel=0  "不隐藏任何字符
 let mapleader=',' "leader映射为逗号
 noremap \ ,    "映射逗号为\
 set wildmode=full
@@ -148,7 +149,7 @@ set autochdir  "自动切换工作目录
 colorscheme molokai
 
 " 切换工作目录到当前文件所在文件夹
-nnoremap <silent> <leader>scf :cd %:h<TAB><CR>
+nnoremap <silent> <leader>cdf :cd %:h<TAB><CR>
 " 编辑 vimrc
 nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 " 读取 vimrc
@@ -179,7 +180,7 @@ nnoremap <leader>t :LeaderfBufTag<CR>
 
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
 "set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-set guifontwide=Microsoft_YaHei:h13
+"set guifontwide=Microsoft\ YaHei:h13
 
 """""""Markdown
 augroup markdownACMD
@@ -270,6 +271,7 @@ runtime macros/matchit.vim   "支持使用 % 在 XML 标签间跳转
 """""""""""""""""""""""""""HTML"""""""""""""""""""""""""""
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
 let g:ycm_global_ycm_extra_conf = 'E:\DeveloperTools\vim\.ycm_extra_conf.py'
+let g:ycm_server_python_interpreter = 'E:/DeveloperTools/Python36/python.exe'
 let g:ycm_key_invoke_completion = '<A-/>'
 "let g:ycm_python_binary_path = 'E:/DeveloperTools/Python35/python.exe'
 let g:ycm_min_num_of_chars_for_completion = 1
