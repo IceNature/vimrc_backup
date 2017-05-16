@@ -214,7 +214,7 @@ let g:syntastic_d_compiler = 'E:/DeveloperTools/Dlang/dmd2/windows/bin/dmd'
 let g:syntastic_d_dub_exec = 'E:/DeveloperTools/Dlang/dub/dub'
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
-nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git<CR>
+nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git --fields=+l<CR>
 set tags=tags
 autocmd vimenter * TagbarToggle
 let g:tagbar_left = 1
@@ -276,6 +276,9 @@ let g:ycm_key_invoke_completion = '<A-/>'
 "let g:ycm_python_binary_path = 'E:/DeveloperTools/Python35/python.exe'
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_always_populate_location_list = 1
 let g:ycm_confirm_extra_conf = 0
@@ -295,6 +298,9 @@ let g:ycm_filetype_blacklist = {
       \ 'infolog' : 1,
       \ 'mail' : 1
       \}
+
+nnoremap <silent> <leader>gd :YcmCompleter GoToDefinition<CR>
+nnoremap <silent> <leader>gt :YcmCompleter GoTo<CR>
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
 """""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
 let g:mkdp_path_to_chrome = 'C:/Program Files/Mozilla Firefox/firefox.exe'
