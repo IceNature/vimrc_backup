@@ -128,7 +128,6 @@ set incsearch "搜索时自动高亮第一个匹配项
 set hlsearch "高亮搜索匹配项
 set ignorecase smartcase "智能匹配大小写
 set hidden "隐藏未保存缓冲区
-set conceallevel=0  "不隐藏任何字符
 let mapleader=',' "leader映射为逗号
 noremap \ ,    "映射逗号为\
 set wildmode=full
@@ -183,15 +182,21 @@ set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
 "set guifontwide=Microsoft\ YaHei:h13
 
 """""""Markdown
-augroup markdownACMD
+augroup markdown
     autocmd!
     autocmd FileType markdown setlocal spell
+    autocmd FileType markdown set conceallevel=0
 augroup END
 
 augroup dubjson
     autocmd!
     autocmd BufEnter dub.json set noexpandtab
     autocmd BufLeave dub.json set expandtab
+augroup END
+
+augroup json
+    autocmd!
+    autocmd FileType json set conceallevel=0
 augroup END
 
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
