@@ -6,10 +6,8 @@ This repo is used to backup `.vimrc`.
 ## Directory
 
 	+Windows  //Windows Vim configurations
-		.clang_complete   //clang_complete C/C++ extra paths
 		.ycm_extra_conf.py	 //YouCompleteMe C/C++ extra options
 		_vimrc
-		+ExtraTools
 
 ## Plugin
 
