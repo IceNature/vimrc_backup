@@ -179,7 +179,7 @@ nnoremap <leader>qp :cprev<CR>
 nnoremap <silent> <leader>lc :lclose<CR>
 nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprev<CR>
-nnoremap <silent> <leader>rp :!python %<CR>
+nnoremap <silent> <leader>rp :silent !python %<CR>
 inoremap <silent> <A-;> <C-c>A;
 inoremap <silent> <A-.> <C-c>A
 nnoremap <leader>t :LeaderfBufTag<CR>
