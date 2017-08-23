@@ -82,8 +82,6 @@ Plug 'Shougo/vimproc.vim'
 "Plug 'chriskempson/base16-vim'
 "Plug 'chriskempson/base16-shell'
 "Plug 'richq/cmakecompletion-vim'
-Plug 'elzr/vim-json'
-let g:vim_json_syntax_conceal = 0
 Plug 'mhinz/vim-startify'
 
 """""""Markdown
@@ -188,24 +186,12 @@ nnoremap <leader>h :LeaderfHelp<CR>
 "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
 set guifont=Source\ Code\ Pro\ for\ Powerline:h13
 
-"""""""Markdown
-augroup markdown
-    autocmd!
-    "autocmd FileType markdown setlocal spell
-    autocmd FileType markdown setlocal conceallevel=0
-augroup END
-
+"""""""autocmd
 augroup dubjson
     autocmd!
     autocmd BufEnter dub.json setlocal noexpandtab
     autocmd BufLeave dub.json setlocal expandtab
 augroup END
-
-augroup json
-    autocmd!
-    autocmd FileType json set conceallevel=0
-augroup END
-
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
 let g:formatdef_my_custom_d = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
@@ -284,6 +270,7 @@ runtime macros/matchit.vim   "支持使用 % 在 XML 标签间跳转
 """""""""""""""""""""""""""HTML"""""""""""""""""""""""""""
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2" }
+let g:indentLine_conceallevel = 0
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 """""""""""""""""""""""""""virtualenv"""""""""""""""""""""""""""
 let g:virtualenv_directory = 'D:\Workspace\virtualenvs'
