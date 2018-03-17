@@ -12,9 +12,9 @@ if has("gui_running")
 endif 
 set winaltkeys=no	"Alt does not map to menu
 """""""DirectX
-if has('win32') || has('win64')
-    set renderoptions=type:directx,renmode:5,taamode:1,gamma:1.0,level:1,contrast:0.5,geom:1
-end
+"if has('win32') || has('win64')
+    "set renderoptions=type:directx,renmode:3,taamode:1,gamma:1.0,level:1,contrast:0.5,geom:1
+"end
 """""""Maximize windows startup
 if has('win32')
     au GUIEnter * simalt ~x
@@ -62,12 +62,12 @@ call plug#begin(expand($VIM).'/vimfiles/bundle')
 Plug 'Valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar'
-Plug 'scrooloose/syntastic'
+"Plug 'scrooloose/syntastic'
 Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'DataWraith/auto_mkdir'
 Plug 'Yggdroot/LeaderF'
-Plug 'Chiel92/vim-autoformat'
+"Plug 'Chiel92/vim-autoformat'
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
@@ -82,7 +82,9 @@ Plug 'Shougo/vimproc.vim'
 "Plug 'chriskempson/base16-vim'
 "Plug 'chriskempson/base16-shell'
 "Plug 'richq/cmakecompletion-vim'
-Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-startify' 
+Plug 'skywind3000/asyncrun.vim'
+Plug 'w0rp/ale'
 
 """""""Markdown
 Plug 'iamcco/markdown-preview.vim'
@@ -91,13 +93,14 @@ Plug 'iamcco/markdown-preview.vim'
 """""""C/C++
 "Plug 'twatan/vim-cmake-dict'
 "au FileType cmake set dictionary+=$VIM/vimfiles/bundle/vim-cmake-dict/dict/cmake.dict
-"Plug 'richq/vim-cmake-completion'
+Plug 'richq/vim-cmake-completion'
 Plug 'taxilian/a.vim'
 """""""D
 Plug 'idanarye/vim-dutyl', {'branch': 'develop'}
 Plug 'JesseKPhillips/d.vim'
 """""""Python
 Plug 'jmcantrell/vim-virtualenv'
+Plug 'python-mode/python-mode'
 
 """""""""""Web
 """""""html/js
@@ -147,6 +150,9 @@ set novisualbell
 "set autochdir  "自动切换工作目录
 set conceallevel=0
 
+"show indent for Tab
+set list lcs=tab:\|\ 
+
 "set background=dark
 "let g:solarized_termcolors=256
 "colorscheme solarized
@@ -159,7 +165,8 @@ nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
 " source vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " auto format
-nnoremap <silent> <leader>af :update<CR>:Autoformat<CR>:update<CR>
+"nnoremap <silent> <leader>af :update<CR>:Autoformat<CR>:update<CR>
+nnoremap <silent> <leader>af :call FormatCode()<CR>
 " Delete all space lines
 nnoremap <silent> <leader>dsl :global /^\n*$/ d
 nnoremap <silent> <leader>bn :bn<CR>
@@ -177,7 +184,7 @@ nnoremap <leader>qp :cprev<CR>
 nnoremap <silent> <leader>lc :lclose<CR>
 nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprev<CR>
-nnoremap <silent> <leader>rp :silent !python %<CR>
+"nnoremap <silent> <leader>rp :silent !python %<CR>
 inoremap <silent> <A-;> <C-c>A;
 inoremap <silent> <A-.> <C-c>A
 nnoremap <leader>t :LeaderfBufTag<CR>
@@ -194,22 +201,22 @@ augroup dubjson
 augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
-let g:formatdef_my_custom_d = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
-let g:formatters_d = ['my_custom_d']
-let g:formatdef_my_custom_c = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
-let g:formatters_c=['my_custom_c']
-let g:formatters_cpp = ['my_custom_cpp']
-let g:formatdef_my_custom_cpp = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+"let g:formatdef_my_custom_d = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+"let g:formatters_d = ['my_custom_d']
+"let g:formatdef_my_custom_c = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
+"let g:formatters_c=['my_custom_c']
+"let g:formatters_cpp = ['my_custom_cpp']
+"let g:formatdef_my_custom_cpp = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
-let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-let g:syntastic_python_python_use_codec = 1                 " Python enable handling coding
-let g:syntastic_d_compiler = 'E:/DeveloperTools/Dlang/dmd2/windows/bin/dmd'
-let g:syntastic_d_dub_exec = 'E:/DeveloperTools/Dlang/dub/dub'
+"let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 1
+"let g:syntastic_python_python_use_codec = 1                 " Python enable handling coding
+"let g:syntastic_d_compiler = 'E:/DeveloperTools/Dlang/dmd2/windows/bin/dmd'
+"let g:syntastic_d_dub_exec = 'E:/DeveloperTools/Dlang/dub/dub'
 """""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git --fields=+li --extra=+q<CR>
@@ -235,7 +242,33 @@ let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#virtualenv#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""ale"""""""""""""""""""""""""""
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_open_list = 1
+let g:ale_c_clangformat_options = '-style=WebKit'
+let g:ale_python_pylint_options = '--disable=missing-docstring,trailing-newlines,fixme'
+let g:ale_fixers = {
+\   'c': ['clang-format'],
+\   'cpp': ['clang-format'],
+\   'python': ['autopep8']
+\}
+let g:ale_fix_on_save = 0
+function! FormatCode()
+    let l:current_type = &filetype
+    execute('update')
+
+    let l:format_command = 'normal! gg=G'
+    if has_key(g:ale_fixers, l:current_type)
+        let l:format_command = 'ALEFix'
+    endif
+    execute(l:format_command)
+
+    execute('update')
+endfunction
+"""""""""""""""""""""""""""ale"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 let g:UltiSnipsJumpForwardTrigger="<C-N>" 
 let g:UltiSnipsJumpBackwardTrigger="<C-P>"
@@ -270,7 +303,8 @@ runtime macros/matchit.vim   "支持使用 % 在 XML 标签间跳转
 """""""""""""""""""""""""""HTML"""""""""""""""""""""""""""
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2" }
-let g:indentLine_conceallevel = 0
+"let g:indentLine_conceallevel = 2
+"let g:indentLine_enabled = 0
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 """""""""""""""""""""""""""virtualenv"""""""""""""""""""""""""""
 let g:virtualenv_directory = 'D:\Workspace\virtualenvs'
@@ -309,6 +343,7 @@ let g:ycm_filetype_blacklist = {
 
 nnoremap <silent> <leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <silent> <leader>gt :YcmCompleter GoTo<CR>
+nnoremap <silent> <leader>gc :YcmCompleter GoToDeclaration<CR>
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
 """""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
 let g:mkdp_path_to_chrome = 'C:/Program Files/Mozilla Firefox/firefox.exe'
@@ -320,5 +355,16 @@ let delimitMate_expand_cr = 1
 """""""""""""""""""""""""""delimitMate"""""""""""""""""""""""""""
 """""""""""""""""""""""""""Grep"""""""""""""""""""""""""""
 set grepprg=pt
-let g:EasyGrepCommand=1
+let g:EasyGrepCommand = 1
+let g:EasyGrepRecursive = 1
 """""""""""""""""""""""""""Grep"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
+let g:pymode_rope_completion = 0
+let g:pymode_python = 'python3'
+let g:pymode_virtualenv = 0
+let g:pymode_run = 1
+let g:pymode_indent = 1
+let g:pymode_doc = 1
+let g:pymode_doc_bind = 'K'
+let g:pymode_lint = 0
+"""""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
