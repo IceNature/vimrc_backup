@@ -62,7 +62,6 @@ call plug#begin(expand($VIM).'/vimfiles/bundle')
 Plug 'Valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar'
-"Plug 'scrooloose/syntastic'
 Plug 'bling/vim-airline'
 Plug 'Raimondi/delimitMate'
 Plug 'DataWraith/auto_mkdir'
@@ -209,16 +208,6 @@ augroup END
 "let g:formatters_cpp = ['my_custom_cpp']
 "let g:formatdef_my_custom_cpp = '"astyle --mode=c -z2 --style=ansi -pcH".(&expandtab ? "s".&shiftwidth : "t")'
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
-"let g:syntastic_always_populate_loc_list = 1  "自动更新错误列表
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_cpp_compiler_options = ' -std=c++11 -Wall'  " C++11支持
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 1
-"let g:syntastic_python_python_use_codec = 1                 " Python enable handling coding
-"let g:syntastic_d_compiler = 'E:/DeveloperTools/Dlang/dmd2/windows/bin/dmd'
-"let g:syntastic_d_dub_exec = 'E:/DeveloperTools/Dlang/dub/dub'
-"""""""""""""""""""""""""""syntastic"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git --fields=+li --extra=+q<CR>
 set tags=tags
@@ -228,8 +217,6 @@ let g:tagbar_width = 30
 let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:functions',  'g:enums',  'u:unions',  's:structs',  'm:members'  ], 'sro': '.',  'kind2scope' : {  'c' : 'class',  'g' : 'enum',  's' : 'struct',  'u' : 'union' },  'scope2kind' : {  'enum' : 'g',  'class' : 'c',  'struct' : 's',  'union' : 'u'  }  }
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
-"call dutyl#register#tool('dcd-client','E:/DeveloperTools/DCD/dcd-client.exe') 
-"call dutyl#register#tool('dcd-server','E:/DeveloperTools/DCD/dcd-server.exe')
 let g:dutyl_stdImportPaths=['E:/DeveloperTools/Dlang/dmd2/src/phobos', 'E:/DeveloperTools/Dlang/dmd2/src/druntime/import', 'E:/DeveloperTools/Dlang/dmd2/src/tango']
 let g:dutyl_neverAddClosingParen = 1
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
@@ -316,10 +303,10 @@ let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2" }
 "let g:indentLine_enabled = 0
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 """""""""""""""""""""""""""virtualenv"""""""""""""""""""""""""""
-let g:virtualenv_directory = 'D:\Workspace\virtualenvs'
+let g:virtualenv_directory = 'D:/Workspace/virtualenvs'
 """""""""""""""""""""""""""virtualenv"""""""""""""""""""""""""""
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
-let g:ycm_global_ycm_extra_conf = 'E:\DeveloperTools\vim\.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = 'E:/DeveloperTools/vim/.ycm_extra_conf.py'
 let g:ycm_key_invoke_completion = '<A-/>'
 " Use first python found in PATH
 let g:ycm_python_binary_path = 'python'
