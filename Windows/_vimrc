@@ -95,6 +95,7 @@ Plug 'iamcco/markdown-preview.vim'
 "au FileType cmake set dictionary+=$VIM/vimfiles/bundle/vim-cmake-dict/dict/cmake.dict
 Plug 'richq/vim-cmake-completion'
 Plug 'taxilian/a.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
 """""""D
 Plug 'idanarye/vim-dutyl', {'branch': 'develop'}
 Plug 'JesseKPhillips/d.vim'
@@ -248,6 +249,10 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_open_list = 1
+let g:ale_c_gcc_options = '-Wall -std=c99'
+let g:ale_c_clang_options = '-Wall -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -std=c++14'
+let g:ale_cpp_clang_options = '-Wall -std=c++14'
 let g:ale_c_clangformat_options = '-style=WebKit'
 let g:ale_python_pylint_options = '--disable=missing-docstring,trailing-newlines,fixme'
 let g:ale_fixers = {
@@ -359,7 +364,6 @@ let g:EasyGrepCommand = 1
 let g:EasyGrepRecursive = 1
 """""""""""""""""""""""""""Grep"""""""""""""""""""""""""""
 """""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
-let g:pymode_rope_completion = 0
 let g:pymode_python = 'python3'
 let g:pymode_virtualenv = 0
 let g:pymode_run = 1
@@ -367,4 +371,19 @@ let g:pymode_indent = 1
 let g:pymode_doc = 1
 let g:pymode_doc_bind = 'K'
 let g:pymode_lint = 0
+let g:pymode_breakpoint = 0
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_regenerate_on_write = 0
 """""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""AsyncRun"""""""""""""""""""""""""""
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+"""""""""""""""""""""""""""AsyncRun"""""""""""""""""""""""""""
+"""""""""""""""""""""""""""Cpp-highlight"""""""""""""""""""""""""""
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+"""""""""""""""""""""""""""Cpp-highlight"""""""""""""""""""""""""""
