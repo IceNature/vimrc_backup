@@ -1,4 +1,4 @@
-﻿let $PATH.=";".$VIM."/ExtraTools;E:/DeveloperTools/MSYS2/mingw64/bin"
+let $PATH.=";".$VIM."/ExtraTools;E:/DeveloperTools/MSYS2/mingw64/bin"
 """""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
 set encoding=utf-8
 set langmenu=zh_CN.UTF-8
@@ -12,9 +12,9 @@ if has("gui_running")
 endif 
 set winaltkeys=no	"Alt does not map to menu
 """""""DirectX
-"if has('win32') || has('win64')
-    "set renderoptions=type:directx,renmode:3,taamode:1,gamma:1.0,level:1,contrast:0.5,geom:1
-"end
+if has('win32') || has('win64')
+    set renderoptions=type:directx,renmode:5,taamode:1
+end
 """""""Maximize windows startup
 if has('win32')
     au GUIEnter * simalt ~x
@@ -115,7 +115,7 @@ Plug 'shawncplus/phpcomplete.vim'
 
 """""""""""HDL
 """""""Verilog
-Plug 'vhda/verilog_systemverilog.vim'
+"Plug 'vhda/verilog_systemverilog.vim'
 
 call plug#end()
 filetype plugin indent on
@@ -146,6 +146,7 @@ set cursorline  "显示当前行位置
 set cursorcolumn   "显示当前列位置
 set nobackup
 set noundofile
+set directory=$TEMP
 set noerrorbells
 set novisualbell
 "set autochdir  "自动切换工作目录
@@ -191,7 +192,6 @@ inoremap <silent> <A-.> <C-c>A
 nnoremap <leader>t :LeaderfBufTag<CR>
 nnoremap <leader>h :LeaderfHelp<CR>
 
-"set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
 set guifont=Source\ Code\ Pro\ for\ Powerline:h13
 
 """""""autocmd
@@ -241,7 +241,8 @@ let g:ale_open_list = 1
 let g:ale_linters = {
 \   'c': ['clang'],
 \   'cpp': ['clang', 'clangcheck'],
-\   'python': ['pylint']
+\   'python': ['pylint'],
+\   'verilog': ['iverilog']
 \}
 let g:ale_cpp_clangcheck_options = '-Wall -std=c++14 -x c++'
 
@@ -390,11 +391,13 @@ let g:EasyGrepRecursive = 1
 """""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
 let g:pymode_python = 'python3'
 let g:pymode_virtualenv = 0
+let g:pymode_warnings = 0
 let g:pymode_run = 1
 let g:pymode_indent = 1
 let g:pymode_doc = 1
 let g:pymode_doc_bind = 'K'
 let g:pymode_lint = 0
+let g:pymode_lint_on_write = 0
 let g:pymode_breakpoint = 0
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
