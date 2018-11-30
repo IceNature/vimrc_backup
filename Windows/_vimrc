@@ -1,8 +1,8 @@
 let $PATH.=";".$VIM."/ExtraTools;E:/DeveloperTools/MSYS2/mingw64/bin"
 """""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
 set encoding=utf-8
-set langmenu=zh_CN.UTF-8
-language messages zh_CN.utf-8
+set langmenu=en_US.UTF-8
+language messages en_US.utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 if has("gui_running")
     set guioptions-=m
@@ -63,7 +63,7 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-airline'
-Plug 'Raimondi/delimitMate'
+"Plug 'Raimondi/delimitMate'
 Plug 'DataWraith/auto_mkdir'
 Plug 'Yggdroot/LeaderF'
 "Plug 'Chiel92/vim-autoformat'
@@ -87,35 +87,35 @@ Plug 'w0rp/ale'
 Plug 'danro/rename.vim'
 
 """""""Markdown
-Plug 'iamcco/markdown-preview.vim'
+Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}
 
 """""""""""Desktop
 """""""C/C++
 "Plug 'twatan/vim-cmake-dict'
 "au FileType cmake set dictionary+=$VIM/vimfiles/bundle/vim-cmake-dict/dict/cmake.dict
-Plug 'richq/vim-cmake-completion'
-Plug 'taxilian/a.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
+Plug 'taxilian/a.vim', {'for': ['c', 'cpp']}
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 """""""D
-Plug 'idanarye/vim-dutyl', {'branch': 'develop'}
-Plug 'JesseKPhillips/d.vim'
+Plug 'idanarye/vim-dutyl', {'branch': 'develop', 'for': 'd'}
+Plug 'JesseKPhillips/d.vim', {'for': 'd'}
 """""""Python
-Plug 'jmcantrell/vim-virtualenv'
-Plug 'python-mode/python-mode'
+Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
+Plug 'python-mode/python-mode', {'for': 'python'}
 
 """""""""""Web
 """""""html/js
-Plug 'othree/html5.vim'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'pangloss/vim-javascript'
+Plug 'othree/html5.vim', {'for': ['html', 'php']}
+Plug 'hail2u/vim-css3-syntax', {'for': ['css', 'html']}
+Plug 'pangloss/vim-javascript', {'for': ['js', 'ts', 'html']}
 """""""PHP
-Plug 'shawncplus/phpcomplete.vim'
+Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
 "Plug '2072/PHP-Indenting-for-VIm'
 "Plug 'captbaritone/better-indent-support-for-php-with-html'
 
 """""""""""HDL
 """""""Verilog
-"Plug 'vhda/verilog_systemverilog.vim'
+Plug 'vhda/verilog_systemverilog.vim', {'for': 'verilog_systemverilog'}
 
 call plug#end()
 filetype plugin indent on
@@ -237,6 +237,8 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_open_list = 1
+let g:ale_c_parse_compile_commands = 1
+let g:ale_c_gcc_autoinclude_source_dir = 1
 
 let g:ale_linters = {
 \   'c': ['clang'],
@@ -245,6 +247,7 @@ let g:ale_linters = {
 \   'verilog': ['iverilog']
 \}
 let g:ale_cpp_clangcheck_options = '-Wall -std=c++14 -x c++'
+let g:ale_cpp_clang_options = '-Wall -std=c++14 -x c++'
 
 let g:ale_c_clangformat_options = '-style=WebKit'
 let g:ale_python_pylint_options = '--disable=missing-docstring,trailing-newlines,fixme'
@@ -353,6 +356,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_always_populate_location_list = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_show_diagnostics_ui = 1
 let g:ycm_semantic_triggers = {
     \ 'python' : ['from ', 're!import[\w,\s]+'],
     \ 'd' : ['import[\w,\s]+'],
