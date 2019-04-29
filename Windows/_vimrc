@@ -1,4 +1,4 @@
-let $PATH.=";".$VIM."/ExtraTools;E:/DeveloperTools/MSYS2/mingw64/bin"
+let $PATH.=";".$VIM."/ExtraTools"
 """""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
 set encoding=utf-8
 set langmenu=en_US.UTF-8
@@ -61,11 +61,11 @@ call plug#begin(expand($VIM).'/vimfiles/bundle')
 """""""""""Common
 Plug 'Valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips'
-Plug 'majutsushi/tagbar'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-airline'
-"Plug 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 Plug 'DataWraith/auto_mkdir'
-Plug 'Yggdroot/LeaderF'
+Plug 'Yggdroot/LeaderF', {'do': './install.bat'}
 "Plug 'Chiel92/vim-autoformat'
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdcommenter'
@@ -73,7 +73,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'luochen1990/rainbow'
 Plug 'lilydjwg/colorizer'
 Plug 'tpope/vim-surround'
-Plug 'dkprice/vim-easygrep'
 Plug 'honza/vim-snippets'
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
@@ -137,7 +136,6 @@ set hlsearch "高亮搜索匹配项
 set ignorecase smartcase "智能匹配大小写
 set hidden "隐藏未保存缓冲区
 let mapleader=',' "leader映射为逗号
-noremap \ ,    "映射逗号为\
 set wildmode=full
 set wildmenu  "命令行补全菜单
 set fileformats=unix,dos "优先选择Unix换行符
@@ -159,6 +157,8 @@ set list lcs=tab:\|\
 "let g:solarized_termcolors=256
 "colorscheme solarized
 colorscheme molokai
+set termguicolors
+set t_Co=256
 
 " change work directory to current file's dir
 nnoremap <silent> <leader>cdf :cd %:h<TAB><CR>
@@ -190,7 +190,12 @@ nnoremap <leader>lp :lprev<CR>
 inoremap <silent> <A-;> <C-c>A;
 inoremap <silent> <A-.> <C-c>A
 nnoremap <leader>t :LeaderfBufTag<CR>
-nnoremap <leader>h :LeaderfHelp<CR>
+" search word under cursor, the pattern is treated as regex, and enter normal mode directly
+nnoremap gw :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR><CR>
+" search visually selected text literally, don't quit LeaderF after accepting an entry
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+" recall last search. If the result window is closed, reopen it.
+noremap go :<C-U>Leaderf! rg --recall<CR>
 
 set guifont=Source\ Code\ Pro\ for\ Powerline:h13
 
@@ -199,6 +204,13 @@ augroup dubjson
     autocmd!
     autocmd BufEnter dub.json setlocal noexpandtab
     autocmd BufLeave dub.json setlocal expandtab
+augroup END
+
+"""""""Go lang insert map
+augroup golangfen
+    autocmd!
+    autocmd FileType go inoremap <buffer>; :
+    autocmd FileType go inoremap <buffer>: ;
 augroup END
 """""""""""""""""""""""""""VIM"""""""""""""""""""""""""""
 """""""""""""""""""""""""""vim-autoformat"""""""""""""""""""""""""""
@@ -212,10 +224,6 @@ augroup END
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git --fields=+li --extra=+q<CR>
 set tags=tags
-autocmd vimenter * TagbarToggle
-let g:tagbar_left = 1
-let g:tagbar_width = 30
-let g:tagbar_type_d = {'ctagstype' : 'd',  'kinds' : [  'c:classes:0:1',  'f:functions',  'g:enums',  'u:unions',  's:structs',  'm:members'  ], 'sro': '.',  'kind2scope' : {  'c' : 'class',  'g' : 'enum',  's' : 'struct',  'u' : 'union' },  'scope2kind' : {  'enum' : 'g',  'class' : 'c',  'struct' : 's',  'union' : 'u'  }  }
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 """""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 let g:dutyl_stdImportPaths=['E:/DeveloperTools/Dlang/dmd2/src/phobos', 'E:/DeveloperTools/Dlang/dmd2/src/druntime/import', 'E:/DeveloperTools/Dlang/dmd2/src/tango']
@@ -224,8 +232,6 @@ let g:dutyl_neverAddClosingParen = 1
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline#extensions#tagbar#flags = 'f'
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
@@ -237,12 +243,12 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_open_list = 1
-let g:ale_c_parse_compile_commands = 1
-let g:ale_c_gcc_autoinclude_source_dir = 1
+"let g:ale_c_parse_compile_commands = 1
+"let g:ale_c_gcc_autoinclude_source_dir = 1
 
 let g:ale_linters = {
-\   'c': ['clang'],
-\   'cpp': ['clang', 'clangcheck'],
+\   'c': [],
+\   'cpp': [],
 \   'python': ['pylint'],
 \   'verilog': ['iverilog']
 \}
@@ -307,6 +313,7 @@ endif
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 let g:UltiSnipsUsePythonVersion = 3 
+let g:UltiSnipsRemoveSelectModeMappings = 0
 if exists('$VIM/userinfo.vim')    "插入 snippets 所需的个人信息
     source $VIM/userinfo.vim
 endif
@@ -365,7 +372,6 @@ let g:ycm_semantic_triggers = {
     \ 'verilog_systemverilog': ['.']
     \ }
 let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
       \ 'qf' : 1,
       \ 'notes' : 1,
       \ 'unite' : 1,
@@ -387,11 +393,6 @@ let delimitMate_balance_matchpairs = 1
 let delimitMate_expand_space = 1
 let delimitMate_expand_cr = 1
 """""""""""""""""""""""""""delimitMate"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""Grep"""""""""""""""""""""""""""
-set grepprg=pt
-let g:EasyGrepCommand = 1
-let g:EasyGrepRecursive = 1
-"""""""""""""""""""""""""""Grep"""""""""""""""""""""""""""
 """""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
 let g:pymode_python = 'python3'
 let g:pymode_virtualenv = 0
@@ -417,4 +418,5 @@ let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
+let c_no_curly_error=1
 """""""""""""""""""""""""""Cpp-highlight"""""""""""""""""""""""""""
