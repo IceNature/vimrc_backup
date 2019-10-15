@@ -59,7 +59,7 @@ endfunction
 call plug#begin(expand($VIM).'/vimfiles/bundle')
 
 """""""""""Common
-Plug 'Valloric/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'bling/vim-airline'
@@ -76,15 +76,15 @@ Plug 'tpope/vim-surround'
 Plug 'honza/vim-snippets'
 Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
-Plug 'Shougo/vimproc.vim'
-"Plug 'chriskempson/base16-vim'
-"Plug 'chriskempson/base16-shell'
+Plug 'chriskempson/base16-vim'
+"Plug 'Shougo/vimproc.vim'
 "Plug 'richq/cmakecompletion-vim'
 Plug 'mhinz/vim-startify' 
 Plug 'skywind3000/asyncrun.vim'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'danro/rename.vim'
-
+"Plug 'Shougo/neco-vim'
+Plug 'IngoHeimbach/neco-vim'
 """""""Markdown
 Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}
 
@@ -154,9 +154,9 @@ set conceallevel=0
 set list lcs=tab:\|\ 
 
 "set background=dark
-"let g:solarized_termcolors=256
-"colorscheme solarized
-colorscheme molokai
+"colorscheme molokai
+let base16colorspace=256
+colorscheme base16-default-dark
 set termguicolors
 set t_Co=256
 
@@ -197,7 +197,7 @@ xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 " recall last search. If the result window is closed, reopen it.
 noremap go :<C-U>Leaderf! rg --recall<CR>
 
-set guifont=Source\ Code\ Pro\ for\ Powerline:h13
+set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 
 """""""autocmd
 augroup dubjson
@@ -364,12 +364,37 @@ let g:ycm_always_populate_location_list = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_show_diagnostics_ui = 1
+let g:ycmycm_use_clangd = 0
+set completeopt+=popup
+set completepopup=height:20,width:60,highlight:Pmenu,border:off
+"let g:ycm_language_server = [ 
+    "\ {
+    "\ 'name': 'vim',
+    "\ 'filetype': ['vim'],
+    "\ 'cmdline': ['vim-language-server.cmd', '--stdio']
+    "\ }
+"\ ]
+"autocmd FileType vim setlocal omnifunc=vim_complete
+"function! s:vim_complete( findstart, base ) abort
+   "let line_prefix = s:get_input()
+   "if a:findstart
+   "let ret = necovim#get_complete_position( line_prefix )
+   "if ret < 0
+    "return col( '.' ) " default to current
+  "endif
+   "return ret
+  "else
+   "return necovim#gather_candidates( line_prefix . a:base, a:base )
+  "endif
+"endfunction
+
 let g:ycm_semantic_triggers = {
     \ 'python' : ['from ', 're!import[\w,\s]+'],
     \ 'd' : ['import[\w,\s]+'],
     \ 'php' : ['$'],
     \ 'c' : ['re!\w*'],
-    \ 'verilog_systemverilog': ['.']
+    \ 'verilog_systemverilog': ['.'],
+    \ 'vim': [':', '#']
     \ }
 let g:ycm_filetype_blacklist = {
       \ 'qf' : 1,
