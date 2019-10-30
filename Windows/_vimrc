@@ -281,11 +281,11 @@ endfunction
 "let g:UltiSnipsJumpBackwardTrigger="<C-P>"
 "let g:UltiSnipsExpandTrigger="<C-E>"
 function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
+    if pumvisible()
+        return "\<C-n>"
+    else
+        call UltiSnips#ExpandSnippet()
+        if g:ulti_expand_res == 0
             call UltiSnips#JumpForwards()
             if g:ulti_jump_forwards_res == 0
                 return "\<TAB>"
@@ -342,6 +342,10 @@ let g:html_indent_style1 = "inc"	" 缩进<style>标签
 runtime macros/matchit.vim   "支持使用 % 在 XML 标签间跳转
 """""""""""""""""""""""""""HTML"""""""""""""""""""""""""""
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
+let g:Lf_Gtagslabel = 'native-pygments'
+let g:Lf_Gtagsconf = 'E:/DeveloperTools/MSYS2/mingw64/share/gtags/gtags.conf'
+let g:Lf_GtagsSkipSymlink = 'a'
+"let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2" }
 "let g:indentLine_conceallevel = 2
 "let g:indentLine_enabled = 0
@@ -359,14 +363,15 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_always_populate_location_list = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_show_diagnostics_ui = 1
 let g:ycmycm_use_clangd = 0
-set completeopt+=popup
-set completepopup=height:20,width:60,highlight:Pmenu,border:off
+set completeopt-=preview
+"set completeopt+=popup
+"set completepopup=height:20,width:60,highlight:Pmenu,border:off
 "let g:ycm_language_server = [ 
     "\ {
     "\ 'name': 'vim',
@@ -409,6 +414,7 @@ let g:ycm_filetype_blacklist = {
 nnoremap <silent> <leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <silent> <leader>gt :YcmCompleter GoTo<CR>
 nnoremap <silent> <leader>gc :YcmCompleter GoToDeclaration<CR>
+let g:ycm_key_list_stop_completion = ['<CR>', '<C-y>']
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
 """""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
 let g:mkdp_path_to_chrome = 'C:/Program Files/Mozilla Firefox/firefox.exe'
