@@ -197,6 +197,11 @@ xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 " recall last search. If the result window is closed, reopen it.
 noremap go :<C-U>Leaderf! rg --recall<CR>
 
+nnoremap <silent> <A-j> :wincmd j<CR>
+nnoremap <silent> <A-k> :wincmd k<CR>
+nnoremap <silent> <A-l> :wincmd l<CR>
+nnoremap <silent> <A-h> :wincmd h<CR>
+
 set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 
 """""""autocmd
