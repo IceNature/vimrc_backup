@@ -189,13 +189,6 @@ nnoremap <leader>lp :lprev<CR>
 "nnoremap <silent> <leader>rp :silent !python %<CR>
 inoremap <silent> <A-;> <C-c>A;
 inoremap <silent> <A-.> <C-c>A
-nnoremap <leader>t :LeaderfBufTag<CR>
-" search word under cursor, the pattern is treated as regex, and enter normal mode directly
-nnoremap gw :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR><CR>
-" search visually selected text literally, don't quit LeaderF after accepting an entry
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
-" recall last search. If the result window is closed, reopen it.
-noremap go :<C-U>Leaderf! rg --recall<CR>
 
 nnoremap <silent> <A-j> :wincmd j<CR>
 nnoremap <silent> <A-k> :wincmd k<CR>
