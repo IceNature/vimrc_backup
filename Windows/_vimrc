@@ -230,10 +230,6 @@ augroup END
 nnoremap <silent> <leader>gtf :!ctags -R --exclude=.git --fields=+li --extra=+q<CR>
 set tags=tags
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
-"""""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
-let g:dutyl_stdImportPaths=['E:/DeveloperTools/Dlang/dmd2/src/phobos', 'E:/DeveloperTools/Dlang/dmd2/src/druntime/import', 'E:/DeveloperTools/Dlang/dmd2/src/tango']
-let g:dutyl_neverAddClosingParen = 1
-"""""""""""""""""""""""""""DCD"""""""""""""""""""""""""""
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
@@ -282,9 +278,6 @@ function! FormatCode()
 endfunction
 """""""""""""""""""""""""""ale"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
-"let g:UltiSnipsJumpForwardTrigger="<C-N>" 
-"let g:UltiSnipsJumpBackwardTrigger="<C-P>"
-"let g:UltiSnipsExpandTrigger="<C-E>"
 function! g:UltiSnips_Complete()
     if pumvisible()
         return "\<C-n>"
@@ -347,13 +340,23 @@ let g:html_indent_style1 = "inc"	" 缩进<style>标签
 runtime macros/matchit.vim   "支持使用 % 在 XML 标签间跳转
 """""""""""""""""""""""""""HTML"""""""""""""""""""""""""""
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
-let g:Lf_Gtagslabel = 'native-pygments'
-let g:Lf_Gtagsconf = 'E:/DeveloperTools/MSYS2/mingw64/share/gtags/gtags.conf'
-let g:Lf_GtagsSkipSymlink = 'a'
-"let g:Lf_GtagsAutoGenerate = 1
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2" }
-"let g:indentLine_conceallevel = 2
-"let g:indentLine_enabled = 0
+let g:Lf_Gtagslabel = 'native-pygments'
+let g:Lf_GtagsAutoGenerate = 1 
+let g:Lf_PreviewInPopup = 1
+nnoremap <leader>t :LeaderfBufTag<CR>
+nnoremap <leader>g :Leaderf gtags --result ctags-x<CR>
+noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+" search word under cursor, the pattern is treated as regex, and enter normal mode directly
+nnoremap gw :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR><CR>
+" search visually selected text literally, don't quit LeaderF after accepting an entry
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR><CR>
+" recall last search. If the result window is closed, reopen it.
+noremap go :<C-U>Leaderf! rg --recall<CR>
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 """""""""""""""""""""""""""virtualenv"""""""""""""""""""""""""""
 let g:virtualenv_directory = 'D:/Workspace/virtualenvs'
@@ -380,23 +383,16 @@ set completeopt-=preview
 "let g:ycm_language_server = [ 
     "\ {
     "\ 'name': 'vim',
-    "\ 'filetype': ['vim'],
-    "\ 'cmdline': ['vim-language-server.cmd', '--stdio']
+    "\ 'filetypes': ['vim'],
+    "\ 'cmdline': ['E:/DeveloperTools/npm/node_global/bin/vim-language-server.cmd', '--stdio']
     "\ }
 "\ ]
-"autocmd FileType vim setlocal omnifunc=vim_complete
-"function! s:vim_complete( findstart, base ) abort
-   "let line_prefix = s:get_input()
-   "if a:findstart
-   "let ret = necovim#get_complete_position( line_prefix )
-   "if ret < 0
-    "return col( '.' ) " default to current
-  "endif
-   "return ret
-  "else
-   "return necovim#gather_candidates( line_prefix . a:base, a:base )
-  "endif
-"endfunction
+"let g:__rtp = &rtp
+"let g:__vimruntime = expand($VIMRUNTIME)
+"let g:ycm_extra_conf_vim_data = [
+    "\ 'g:__rtp',
+    "\ 'g:__vimruntime'
+    "\ ]
 
 let g:ycm_semantic_triggers = {
     \ 'python' : ['from ', 're!import[\w,\s]+'],
@@ -404,7 +400,8 @@ let g:ycm_semantic_triggers = {
     \ 'php' : ['$'],
     \ 'c' : ['re!\w*'],
     \ 'verilog_systemverilog': ['.'],
-    \ 'vim': [':', '#']
+    \ 'vim': [':', '#'],
+    \ 'go': ['re!\w*']
     \ }
 let g:ycm_filetype_blacklist = {
       \ 'qf' : 1,
@@ -420,6 +417,8 @@ nnoremap <silent> <leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <silent> <leader>gt :YcmCompleter GoTo<CR>
 nnoremap <silent> <leader>gc :YcmCompleter GoToDeclaration<CR>
 let g:ycm_key_list_stop_completion = ['<CR>', '<C-y>']
+
+let g:ycm_log_level = 'debug'
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
 """""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
 let g:mkdp_path_to_chrome = 'C:/Program Files/Mozilla Firefox/firefox.exe'
@@ -427,7 +426,8 @@ let g:mkdp_path_to_chrome = 'C:/Program Files/Mozilla Firefox/firefox.exe'
 """""""""""""""""""""""""""delimitMate"""""""""""""""""""""""""""
 let delimitMate_balance_matchpairs = 1
 let delimitMate_expand_space = 1
-let delimitMate_expand_cr = 1
+let delimitMate_expand_cr = 2
+let delimitMate_expand_inside_quotes = 1
 """""""""""""""""""""""""""delimitMate"""""""""""""""""""""""""""
 """""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
 let g:pymode_python = 'python3'
