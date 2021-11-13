@@ -1,10 +1,11 @@
-if has('nvim')
-    let $PATH.=";"."E:/DeveloperTools/vim/ExtraTools"
-    let g:python3_host_prog='D:/Workspace/virtualenvs/pynvim3/Scripts/python.exe'
-    let g:loaded_python_provider=0
-else
-    let $PATH.=";".$VIM."/ExtraTools"
+if has('win32')
+    let $PATH.=";".expand('~/vimfiles/ExtraTools')
 endif
+if has('nvim')
+    let g:python3_host_prog='F:/Workspace/virtualenvs/pynvim3/Scripts/python.exe'
+    let g:loaded_python_provider=0
+endif
+let s:vimrc_path = expand('~/vimfiles/.vimrc')
 """""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
 set encoding=utf-8
 set langmenu=en_US.UTF-8
@@ -67,7 +68,7 @@ function! MyDiff()
 endfunction
 """""""""""""""""""""""""""vim-plug"""""""""""""""""""""""""""
 "call plug#begin(expand($VIM).'/vimfiles/bundle')
-call plug#begin(expand('~/.nvim/plugs'))
+call plug#begin(expand('~/vimfiles/plugs'))
 
 """""""""""Common
 "Plug 'ycm-core/YouCompleteMe'
@@ -89,34 +90,31 @@ Plug 'tpope/vim-surround'
 Plug 'honza/vim-snippets'
 "Plug 'tomasr/molokai'
 "Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/base16-vim'
+"Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
-"Plug 'Shougo/vimproc.vim'
 "Plug 'richq/cmakecompletion-vim'
 Plug 'mhinz/vim-startify' 
 Plug 'skywind3000/asyncrun.vim'
+"Plug 'Shougo/neosnippet.vim'
 "Plug 'dense-analysis/ale'
 Plug 'danro/rename.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 """""""Markdown
-Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
 
 """""""""""Desktop
 """""""C/C++
-"Plug 'twatan/vim-cmake-dict'
-"au FileType cmake set dictionary+=$VIM/vimfiles/bundle/vim-cmake-dict/dict/cmake.dict
-Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 Plug 'taxilian/a.vim', {'for': ['c', 'cpp']}
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
+"Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp']}
 """""""D
-"Plug 'idanarye/vim-dutyl', {'branch': 'develop', 'for': 'd'}
-Plug 'JesseKPhillips/d.vim', {'for': 'd'}
+"Plug 'JesseKPhillips/d.vim', {'for': 'd'}
 """""""Python
-Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
-Plug 'python-mode/python-mode', {'for': 'python'}
+"Plug 'jmcantrell/vim-virtualenv', {'for': 'python'}
+"Plug 'python-mode/python-mode', {'for': 'python'}
 
 """""""""""Web
 """""""html/js
-Plug 'othree/html5.vim', {'for': ['html', 'php']}
 Plug 'hail2u/vim-css3-syntax', {'for': ['css', 'html']}
 """""""PHP
 "Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
@@ -160,36 +158,39 @@ set nowritebackup
 set updatetime=300
 set shortmess+=c
 set noundofile
-set directory=$TEMP
 set noerrorbells
 set novisualbell
 "set autochdir  "自动切换工作目录
 set signcolumn=yes
-
-"show indent for Tab
+" show indent for Tab
 set list lcs=tab:\|\ 
+" TEMP directory of different system
+if has('win32')
+    set directory=$TEMP
+elseif has('unix')
+    set directory=/tmp
+endif
 
 "set background=dark
 "colorscheme molokai
 "let base16colorspace=256
+let g:gruvbox_italic = 1
+let g:gruvbox_contrast_dark = "medium"
 colorscheme gruvbox
-let g:gruvbox_contrast_light = "medium"
-set background=light
+set background=dark
+
 set termguicolors
 set t_Co=256
+"let g:onedark_termcolors = 256
+"let g:onedark_terminal_italics = 1
+"colorscheme onedark
 
 " change work directory to current file's dir
 nnoremap <silent> <leader>cdf :cd %:h<TAB><CR>
-if has('nvim')
-    exec 'nnoremap <silent> <leader>ev :e '.g:vimrc_path.'<CR>'
-    exec 'nnoremap <leader>sv :source '.g:vimrc_path.'<CR>'
-else
-    nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
-    nnoremap <leader>sv :source $MYVIMRC<cr>
-endif
-" auto format
-"nnoremap <silent> <leader>af :update<CR>:Autoformat<CR>:update<CR>
-nnoremap <silent> <leader>af :call CocAction('format')<CR>
+exec 'nnoremap <silent> <leader>ev :e '.s:vimrc_path.'<CR>'
+exec 'nnoremap <leader>sv :source '.s:vimrc_path.'<CR>'
+"nnoremap <silent> <leader>ev :e $MYVIMRC<cr>
+"nnoremap <leader>sv :source $MYVIMRC<cr>
 " Delete all space lines
 nnoremap <silent> <leader>dsl :global /^\n*$/ d
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -209,14 +210,21 @@ nnoremap <silent><leader>bp :bp<CR>
 
 "set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 if has('nvim')
-    set guifont=SauceCodePro\ NF:h20:b
+    set guifont=SauceCodePro\ NF:h15
     let g:neovide_fullscreen=v:true
     let g:neovide_cursor_antialiasing=v:true
 else
-    set guifont=SauceCodePro_NF:h15:W600:cANSI
+    if has("gui_gtk2") || has("gui_gtk3")
+        set guifont=SauceCodePro\ Nerd\ Font\ Mono\ Semi-Bold\ 15
+    elseif has("gui_photon")
+        set guifont=SauceCodePro\ Nerd\ Font\ Mono\ Semi-Bold:s15
+    else
+        set guifont=SauceCodePro_NF:h15:W600:cANSI
+    endif
 endif
 
 let g:vim_json_conceal=0
+let g:indentLine_concealcursor='inc'
 """""""autocmd
 augroup dubjson
     autocmd!
@@ -237,13 +245,13 @@ set tags=tags
 """""""""""""""""""""""""""ctags"""""""""""""""""""""""""""
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#empty_message = ''
 let g:airline#extensions#branch#displayed_head_limit = 10
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#coc#enabled = 1
+let airline#extensions#coc#error_symbol = ''
+let airline#extensions#coc#warning_symbol = ''
 """""""""""""""""""""""""""airline"""""""""""""""""""""""""""
 """""""""""""""""""""""""""ultisnips"""""""""""""""""""""""""""
 "function! g:UltiSnips_Complete()
@@ -280,11 +288,7 @@ let g:airline#extensions#ale#enabled = 1
 "au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 "let g:UltiSnipsUsePythonVersion = 3 
 "let g:UltiSnipsRemoveSelectModeMappings = 0
-if has('nvim')
-    let s:ulti_userinfo = fnamemodify(g:vimrc_path, ':p:h').'/userinfo.vim'
-else
-    let s:ulti_userinfo = expand('$VIM/userinfo.vim')
-endif
+let s:ulti_userinfo = expand('~/vimfiles/userinfo.vim')
 if exists(s:ulti_userinfo)    "插入 snippets 所需的个人信息
     exec 'exec '.s:ulti_userinfo
 endif
@@ -332,7 +336,7 @@ xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
-"let g:ycm_global_ycm_extra_conf = 'E:/DeveloperTools/vim/.ycm_extra_conf.py'
+"let g:ycm_global_ycm_extra_conf = 'G:/DeveloperTools/vim/.ycm_extra_conf.py'
 "let g:ycm_key_invoke_completion = '<A-/>'
 "let g:ycm_python_binary_path = 'python'
 "let g:ycm_min_num_of_chars_for_completion = 1
@@ -353,7 +357,7 @@ noremap go :<C-U>Leaderf! rg --recall<CR>
     ""\ {
     ""\ 'name': 'vim',
     ""\ 'filetypes': ['vim'],
-    ""\ 'cmdline': ['E:/DeveloperTools/npm/node_global/bin/vim-language-server.cmd', '--stdio']
+    ""\ 'cmdline': ['G:/DeveloperTools/npm/node_global/bin/vim-language-server.cmd', '--stdio']
     ""\ }
 ""\ ]
 ""let g:__rtp = &rtp
@@ -388,26 +392,28 @@ noremap go :<C-U>Leaderf! rg --recall<CR>
 "let g:ycm_key_list_stop_completion = ['<CR>', '<C-y>']
 """""""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
 """""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
-let g:mkdp_path_to_chrome = 'C:/Program Files/Mozilla Firefox/firefox.exe'
+let g:mkdp_browser = 'C:/Program Files/Mozilla Firefox/firefox.exe'
 """""""""""""""""""""""""""markdown"""""""""""""""""""""""""""
 """""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
-let g:pymode_python = 'python3'
-let g:pymode_virtualenv = 0
-let g:pymode_warnings = 0
-let g:pymode_run = 1
-let g:pymode_indent = 1
-let g:pymode_doc = 1
-let g:pymode_doc_bind = 'K'
-let g:pymode_lint = 0
-let g:pymode_lint_on_write = 0
-let g:pymode_breakpoint = 0
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_regenerate_on_write = 0
+"let g:pymode_python = 'python3'
+"let g:pymode_virtualenv = 0
+"let g:pymode_warnings = 0
+"let g:pymode_run = 1
+"let g:pymode_indent = 1
+"let g:pymode_doc = 1
+"let g:pymode_doc_bind = 'K'
+"let g:pymode_lint = 0
+"let g:pymode_lint_on_write = 0
+"let g:pymode_breakpoint = 0
+"let g:pymode_rope = 0
+"let g:pymode_rope_completion = 0
+"let g:pymode_rope_regenerate_on_write = 0
 """""""""""""""""""""""""""Python-mode"""""""""""""""""""""""""""
 """""""""""""""""""""""""""AsyncRun"""""""""""""""""""""""""""
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+let g:asyncrun_auto = "make"
+let g:asyncrun_status = "stopped"
+autocmd VimEnter * let g:airline_section_error = airline#section#create_right([g:airline_section_error, '%{g:asyncrun_status}'])
 """""""""""""""""""""""""""AsyncRun"""""""""""""""""""""""""""
 """""""""""""""""""""""""""Cpp-highlight"""""""""""""""""""""""""""
 let g:cpp_class_scope_highlight = 1
@@ -418,12 +424,16 @@ let g:cpp_concepts_highlight = 1
 let c_no_curly_error=1
 """""""""""""""""""""""""""Cpp-highlight"""""""""""""""""""""""""""
 """""""""""""""""""""""""""coc.nvim"""""""""""""""""""""""""""
+if has('nvim')
+    let g:coc_config_home = expand('~/vimfiles')
+endif
 autocmd FileType json syntax match Comment +\/\/.\+$+
 inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
             \ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetNext',[])\<CR>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
+            \ "\<Tab>"
+            "\ <SID>check_back_space() ? "\<TAB>" :
+            "\ coc#refresh()
 
 inoremap <silent><expr> <S-TAB> 
             \ pumvisible() ? "\<C-p>" : 
@@ -442,17 +452,38 @@ else
                 \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 endif
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+"function! s:check_back_space() abort
+    "let col = col('.') - 1
+    "return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
 
 let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<s-tab>'
+xmap <silent><expr> <tab> 
+            \ coc#jumpable() ? "\<tab>" : ">" 
+xmap <silent><expr> <s-tab>
+            \ coc#jumpable() ? "\<s-tab>" : "<" 
+nmap <silent><expr> <tab> 
+            \ coc#jumpable() ? "\<tab>" : ">>" 
+nmap <silent><expr> <s-tab>
+            \ coc#jumpable() ? "\<s-tab>" : "<<" 
 
 nnoremap <silent> <leader>cd  :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
 nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
 nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
+" coc-yank
+" Clean history: CocCommand yank.clean 
+nnoremap <silent> <leader>cay :<C-u>CocList -A --normal yank<CR>
+" coc format
+nmap <leader>cf <Plug>(coc-format-selected)
+xmap <leader>cf <Plug>(coc-format-selected)
+command! -nargs=0 Format :call CocAction('format')
+augroup coc-format
+    autocmd!
+    autocmd FileType cpp,go setlocal formatexpr=CocAction('formatSelected')
+augroup end
+" coc auto fix
+nmap <leader>cqf  <Plug>(coc-fix-current)
 """""""""""""""""""""""""""coc.nvim"""""""""""""""""""""""""""
