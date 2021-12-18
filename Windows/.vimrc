@@ -2,7 +2,7 @@ if has('win32')
     let $PATH.=";".expand('~/vimfiles/ExtraTools')
 endif
 if has('nvim')
-    let g:python3_host_prog='F:/Workspace/virtualenvs/pynvim3/Scripts/python.exe'
+    let g:python3_host_prog='F:/Workspace/virtualenvs/pynvim3/bin/python.exe'
     let g:loaded_python_provider=0
 endif
 let s:vimrc_path = expand('~/vimfiles/.vimrc')
@@ -85,7 +85,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
 Plug 'luochen1990/rainbow'
-Plug 'lilydjwg/colorizer'
+"Plug 'lilydjwg/colorizer'
 Plug 'tpope/vim-surround'
 Plug 'honza/vim-snippets'
 "Plug 'tomasr/molokai'
@@ -161,7 +161,16 @@ set noundofile
 set noerrorbells
 set novisualbell
 "set autochdir  "自动切换工作目录
-set signcolumn=yes
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 " show indent for Tab
 set list lcs=tab:\|\ 
 " TEMP directory of different system
@@ -318,9 +327,12 @@ runtime macros/matchit.vim   "支持使用 % 在 XML 标签间跳转
 """""""""""""""""""""""""""HTML"""""""""""""""""""""""""""
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2" }
+let g:Lf_Gtagsconf = 'G:/DeveloperTools/MSYS2/clang64/share/gtags/gtags.conf'
+let g:Lf_GtagsSource = 0
 let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_GtagsAutoGenerate = 1 
-let g:Lf_PreviewInPopup = 1
+"let g:Lf_PreviewInPopup = 1
+let g:Lf_WindowPosition = 'popup'
 nnoremap <leader>t :LeaderfBufTag<CR>
 nnoremap <leader>g :Leaderf gtags --result ctags-x<CR>
 noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
@@ -424,6 +436,15 @@ let g:cpp_concepts_highlight = 1
 let c_no_curly_error=1
 """""""""""""""""""""""""""Cpp-highlight"""""""""""""""""""""""""""
 """""""""""""""""""""""""""coc.nvim"""""""""""""""""""""""""""
+let g:coc_global_extensions = ['coc-json', 
+            \ 'coc-cmake', 
+            \ 'coc-syntax',
+            \ 'coc-snippets', 
+            \ 'coc-omni',
+            \ 'coc-marketplace',
+            \ 'coc-highlight',
+            \ 'coc-pyright',
+            \]
 if has('nvim')
     let g:coc_config_home = expand('~/vimfiles')
 endif
@@ -469,16 +490,51 @@ nmap <silent><expr> <s-tab>
             \ coc#jumpable() ? "\<s-tab>" : "<<" 
 
 nnoremap <silent> <leader>cd  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ca  :<C-u>CocList<cr>
 nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
 nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
 nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
 " coc-yank
 " Clean history: CocCommand yank.clean 
 nnoremap <silent> <leader>cay :<C-u>CocList -A --normal yank<CR>
 " coc format
 nmap <leader>cf <Plug>(coc-format-selected)
 xmap <leader>cf <Plug>(coc-format-selected)
+" coc code refactor
+nmap <leader>rf <Plug>(coc-refactor)
+xmap <leader>rf <Plug>(coc-refactor)
+
 command! -nargs=0 Format :call CocAction('format')
 augroup coc-format
     autocmd!
