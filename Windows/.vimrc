@@ -2,14 +2,16 @@ if has('win32')
     let $PATH.=";".expand('~/vimfiles/ExtraTools')
 endif
 if has('nvim')
-    let g:python3_host_prog='F:/Workspace/virtualenvs/pynvim3/bin/python.exe'
+    let g:python3_host_prog='G:/DeveloperTools/MSYS2/ucrt64/bin/python.exe'
     let g:loaded_python_provider=0
 endif
 let s:vimrc_path = expand('~/vimfiles/.vimrc')
 """""""""""""""""""""""""""VIM Encoding"""""""""""""""""""""""""""
 set encoding=utf-8
-set langmenu=en_US.UTF-8
-language messages en_US.utf-8
+"set langmenu=en_US.UTF-8
+"language messages en_US.utf-8
+set langmenu=zh_CN.UTF-8
+language zh_CN.utf-8
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 if !has('nvim')
     if has("gui_running")
@@ -219,7 +221,7 @@ nnoremap <silent><leader>bp :bp<CR>
 
 "set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 if has('nvim')
-    set guifont=SauceCodePro\ NF:h15
+    "set guifont=SauceCodePro\ NF:h15
     let g:neovide_fullscreen=v:true
     let g:neovide_cursor_antialiasing=v:true
 else
@@ -327,7 +329,7 @@ runtime macros/matchit.vim   "支持使用 % 在 XML 标签间跳转
 """""""""""""""""""""""""""HTML"""""""""""""""""""""""""""
 """""""""""""""""""""""""""LeaderF"""""""""""""""""""""""""""
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2" }
-let g:Lf_Gtagsconf = 'G:/DeveloperTools/MSYS2/clang64/share/gtags/gtags.conf'
+let g:Lf_Gtagsconf = 'G:/DeveloperTools/MSYS2/ucrt64/share/gtags/gtags.conf'
 let g:Lf_GtagsSource = 0
 let g:Lf_Gtagslabel = 'native-pygments'
 let g:Lf_GtagsAutoGenerate = 1 
@@ -449,30 +451,45 @@ if has('nvim')
     let g:coc_config_home = expand('~/vimfiles')
 endif
 autocmd FileType json syntax match Comment +\/\/.\+$+
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetNext',[])\<CR>" :
-            \ "\<Tab>"
-            "\ <SID>check_back_space() ? "\<TAB>" :
-            "\ coc#refresh()
+"inoremap <silent><expr> <TAB>
+            "\ pumvisible() ? "\<C-n>" :
+            "\ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetNext',[])\<CR>" :
+            "\ "\<Tab>"
+            ""\ <SID>check_back_space() ? "\<TAB>" :
+            ""\ coc#refresh()
 
-inoremap <silent><expr> <S-TAB> 
-            \ pumvisible() ? "\<C-p>" : 
-            \ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetPrev',[])\<CR>" :
-            \ "\<C-h>"
+"inoremap <silent><expr> <S-TAB> 
+            "\ pumvisible() ? "\<C-p>" : 
+            "\ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetPrev',[])\<CR>" :
+            "\ "\<C-h>"
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetNext',[])\<CR>" :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) :
+      \ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetPrev',[])\<CR>" :
+      \ "\<C-h>"
+
+function! CheckBackspace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 inoremap <silent><expr> <A-/> coc#refresh()
-if has('patch8.1.1068')
-    " Use `complete_info` if your (Neo)Vim version supports it.
-    inoremap <silent><expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" :
-                \ coc#expandable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand',''])\<CR>" :
-                \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-else
-    imap <silent><expr> <CR> pumvisible() ? "\<C-y>" :
-                \ coc#expandable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand',''])\<CR>" :
-                \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-endif
-
+"if has('patch8.1.1068')
+    "" Use `complete_info` if your (Neo)Vim version supports it.
+    "inoremap <silent><expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" :
+                "\ coc#expandable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand',''])\<CR>" :
+                "\ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"else
+"imap <silent><expr> <CR> coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm():
+            "\ coc#expandable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand',''])\<CR>" :
+            "\ "\<C-g>u\<CR>"
+"endif
+inoremap <silent><expr> <cr> coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm() : "\<C-g>u\<CR>"
 "function! s:check_back_space() abort
     "let col = col('.') - 1
     "return !col || getline('.')[col - 1]  =~# '\s'
@@ -510,13 +527,13 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
