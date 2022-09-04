@@ -451,19 +451,9 @@ if has('nvim')
     let g:coc_config_home = expand('~/vimfiles')
 endif
 autocmd FileType json syntax match Comment +\/\/.\+$+
-"inoremap <silent><expr> <TAB>
-            "\ pumvisible() ? "\<C-n>" :
-            "\ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetNext',[])\<CR>" :
-            "\ "\<Tab>"
-            ""\ <SID>check_back_space() ? "\<TAB>" :
-            ""\ coc#refresh()
-
-"inoremap <silent><expr> <S-TAB> 
-            "\ pumvisible() ? "\<C-p>" : 
-            "\ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetPrev',[])\<CR>" :
-            "\ "\<C-h>"
 
 inoremap <silent><expr> <TAB>
+      \ coc#expandable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand',''])\<CR>" :
       \ coc#pum#visible() ? coc#pum#next(1):
       \ coc#jumpable() ? "\<C-r>=coc#rpc#request('snippetNext',[])\<CR>" :
       \ CheckBackspace() ? "\<Tab>" :
@@ -479,21 +469,8 @@ function! CheckBackspace() abort
 endfunction
 
 inoremap <silent><expr> <A-/> coc#refresh()
-"if has('patch8.1.1068')
-    "" Use `complete_info` if your (Neo)Vim version supports it.
-    "inoremap <silent><expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" :
-                "\ coc#expandable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand',''])\<CR>" :
-                "\ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-"else
-"imap <silent><expr> <CR> coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm():
-            "\ coc#expandable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand',''])\<CR>" :
-            "\ "\<C-g>u\<CR>"
-"endif
-inoremap <silent><expr> <cr> coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm() : "\<C-g>u\<CR>"
-"function! s:check_back_space() abort
-    "let col = col('.') - 1
-    "return !col || getline('.')[col - 1]  =~# '\s'
-"endfunction
+inoremap <silent><expr> <cr> coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm() : 
+                \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<s-tab>'
